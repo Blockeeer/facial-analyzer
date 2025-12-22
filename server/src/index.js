@@ -14,6 +14,11 @@ import { connectDatabase } from './config/database.js'
 const app = express()
 const PORT = process.env.PORT || 3001
 
+// Trust proxy for services like Render, Heroku, etc.
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1)
+}
+
 // Connect to MongoDB
 connectDatabase()
 
