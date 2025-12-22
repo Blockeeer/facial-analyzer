@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { X, LogIn, UserPlus, Mail, Lock, User, AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react'
+import { X, LogIn, UserPlus, Mail, Lock, User, AlertCircle, CheckCircle, Eye, EyeOff, KeyRound, ArrowLeft } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
+import { authApi } from '../../services/auth.api'
 
 export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
-  const [mode, setMode] = useState(initialMode) // 'login', 'register'
+  const [mode, setMode] = useState(initialMode) // 'login', 'register', 'forgot'
 
   // Sync mode with initialMode when it changes (e.g., when opening login vs register)
   useEffect(() => {
@@ -14,6 +15,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [name, setName] = useState('')
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -25,6 +27,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
     setConfirmPassword('')
     setName('')
     setError('')
+    setSuccess('')
     setShowPassword(false)
     setShowConfirmPassword(false)
   }
@@ -80,6 +83,26 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
     }
   }
 
+  const handleForgotPassword = async (e) => {
+    e.preventDefault()
+    setError('')
+    setSuccess('')
+    setIsLoading(true)
+
+    try {
+      const response = await authApi.forgotPassword(email)
+      if (response.success) {
+        setSuccess('If an account with that email exists, a password reset link has been sent. Please check your inbox.')
+      } else {
+        setError(response.error || 'Failed to send reset email')
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send reset email')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   if (!isOpen) return null
 
   return (
@@ -105,14 +128,17 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
           <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 mb-3 sm:mb-4 shadow-glow">
             {mode === 'login' && <LogIn className="w-6 h-6 sm:w-8 sm:h-8 text-white" />}
             {mode === 'register' && <UserPlus className="w-6 h-6 sm:w-8 sm:h-8 text-white" />}
+            {mode === 'forgot' && <KeyRound className="w-6 h-6 sm:w-8 sm:h-8 text-white" />}
           </div>
           <h2 className="text-xl sm:text-2xl font-bold text-white">
             {mode === 'login' && 'Welcome Back'}
             {mode === 'register' && 'Create Account'}
+            {mode === 'forgot' && 'Reset Password'}
           </h2>
           <p className="text-dark-400 mt-1 sm:mt-2 text-sm sm:text-base">
             {mode === 'login' && 'Sign in to access your facial analysis'}
             {mode === 'register' && 'Get personalized peptide recommendations'}
+            {mode === 'forgot' && 'Enter your email to receive a reset link'}
           </p>
         </div>
 
@@ -125,7 +151,14 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
             </div>
           )}
 
-          {mode === 'login' ? (
+          {success && (
+            <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-accent-900/30 border border-accent-700/50 rounded-xl flex items-center gap-2 sm:gap-3 text-accent-400">
+              <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+              <p className="text-xs sm:text-sm">{success}</p>
+            </div>
+          )}
+
+          {mode === 'login' && (
             <form onSubmit={handleLogin} className="space-y-4 sm:space-y-5">
               <div>
                 <label htmlFor="login-email" className="block text-sm font-medium text-dark-300 mb-1.5 sm:mb-2">
@@ -147,9 +180,18 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
               </div>
 
               <div>
-                <label htmlFor="login-password" className="block text-sm font-medium text-dark-300 mb-1.5 sm:mb-2">
-                  Password
-                </label>
+                <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                  <label htmlFor="login-password" className="block text-sm font-medium text-dark-300">
+                    Password
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => switchMode('forgot')}
+                    className="text-xs sm:text-sm text-primary-400 hover:text-primary-300 transition-colors"
+                  >
+                    Forgot password?
+                  </button>
+                </div>
                 <div className="relative">
                   <Lock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-dark-500" />
                   <input
@@ -188,7 +230,9 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
                 )}
               </button>
             </form>
-          ) : (
+          )}
+
+          {mode === 'register' && (
             <form onSubmit={handleRegister} className="space-y-3 sm:space-y-4">
               <div>
                 <label htmlFor="register-name" className="block text-sm font-medium text-dark-300 mb-1 sm:mb-2">
@@ -318,30 +362,79 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
             </form>
           )}
 
+          {mode === 'forgot' && (
+            <form onSubmit={handleForgotPassword} className="space-y-4 sm:space-y-5">
+              <div>
+                <label htmlFor="forgot-email" className="block text-sm font-medium text-dark-300 mb-1.5 sm:mb-2">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-dark-500" />
+                  <input
+                    id="forgot-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 bg-dark-700/50 border border-dark-600 rounded-xl text-white placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-sm sm:text-base"
+                    placeholder="you@example.com"
+                    required
+                    autoComplete="email"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading || !email}
+                className="w-full py-2.5 sm:py-3.5 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-xl shadow-glow hover:shadow-glow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+              >
+                {isLoading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Sending...
+                  </span>
+                ) : (
+                  'Send Reset Link'
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => switchMode('login')}
+                className="w-full flex items-center justify-center gap-2 py-2.5 text-dark-400 hover:text-white transition-colors text-sm"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Sign In
+              </button>
+            </form>
+          )}
+
           {/* Toggle mode */}
-          <p className="mt-4 sm:mt-6 text-center text-dark-400 text-sm sm:text-base">
-            {mode === 'login' ? (
-              <>
-                Don&apos;t have an account?{' '}
-                <button
-                  onClick={() => switchMode('register')}
-                  className="text-primary-400 hover:text-primary-300 font-medium"
-                >
-                  Create one
-                </button>
-              </>
-            ) : (
-              <>
-                Already have an account?{' '}
-                <button
-                  onClick={() => switchMode('login')}
-                  className="text-primary-400 hover:text-primary-300 font-medium"
-                >
-                  Sign in
-                </button>
-              </>
-            )}
-          </p>
+          {mode !== 'forgot' && (
+            <p className="mt-4 sm:mt-6 text-center text-dark-400 text-sm sm:text-base">
+              {mode === 'login' ? (
+                <>
+                  Don&apos;t have an account?{' '}
+                  <button
+                    onClick={() => switchMode('register')}
+                    className="text-primary-400 hover:text-primary-300 font-medium"
+                  >
+                    Create one
+                  </button>
+                </>
+              ) : (
+                <>
+                  Already have an account?{' '}
+                  <button
+                    onClick={() => switchMode('login')}
+                    className="text-primary-400 hover:text-primary-300 font-medium"
+                  >
+                    Sign in
+                  </button>
+                </>
+              )}
+            </p>
+          )}
         </div>
       </div>
     </div>
