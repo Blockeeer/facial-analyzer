@@ -158,6 +158,7 @@ export async function getMeController(req, res) {
       email: user.email,
       name: user.name,
       profile: user.profile,
+      isEmailVerified: user.isEmailVerified,
       createdAt: user.createdAt,
     },
   })

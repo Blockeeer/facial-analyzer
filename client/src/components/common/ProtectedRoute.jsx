@@ -1,9 +1,10 @@
 import { useAuth } from '../../context/AuthContext'
 import { useAuthModal } from '../../context/AuthModalContext'
 import { useEffect } from 'react'
+import { Navigate } from 'react-router-dom'
 
-export default function ProtectedRoute({ children }) {
-  const { isAuthenticated, isLoading } = useAuth()
+export default function ProtectedRoute({ children, requireVerification = false }) {
+  const { isAuthenticated, isEmailVerified, isLoading } = useAuth()
   const { openLoginModal } = useAuthModal()
 
   useEffect(() => {
@@ -32,6 +33,11 @@ export default function ProtectedRoute({ children }) {
     return (
       <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900" />
     )
+  }
+
+  // If verification is required but user is not verified, redirect to verify page
+  if (requireVerification && !isEmailVerified) {
+    return <Navigate to="/verify-required" replace />
   }
 
   return <>{children}</>

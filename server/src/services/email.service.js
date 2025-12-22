@@ -1,45 +1,51 @@
-import { Resend } from 'resend'
+import sgMail from '@sendgrid/mail'
 
 class EmailService {
   constructor() {
-    this.resend = null
-    this.from = process.env.EMAIL_FROM || 'PeptiScan <onboarding@resend.dev>'
+    this.initialized = false
   }
 
   init() {
-    if (!this.resend && process.env.RESEND_API_KEY) {
-      this.resend = new Resend(process.env.RESEND_API_KEY)
-      console.log('📧 Email service initialized with Resend')
+    if (!this.initialized && process.env.SENDGRID_API_KEY) {
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+      this.initialized = true
+      console.log('📧 Email service initialized with SendGrid')
+      console.log(`📧 Sending from: ${process.env.EMAIL_FROM}`)
     }
   }
 
   async sendEmail(to, subject, html) {
     this.init()
 
-    if (!this.resend) {
-      console.warn('📧 Email not sent - RESEND_API_KEY not configured')
+    if (!this.initialized) {
+      console.warn('📧 Email not sent - SENDGRID_API_KEY not configured')
       console.log(`   To: ${to}`)
       console.log(`   Subject: ${subject}`)
       return { id: 'dev-mode', message: 'Email service not configured' }
     }
 
+    const from = process.env.EMAIL_FROM
+    if (!from) {
+      console.error('📧 EMAIL_FROM not configured in .env')
+      throw new Error('EMAIL_FROM not configured')
+    }
+
     try {
-      const { data, error } = await this.resend.emails.send({
-        from: this.from,
-        to: [to],
+      const msg = {
+        to,
+        from,
         subject,
         html,
-      })
-
-      if (error) {
-        console.error('📧 Email send error:', error)
-        throw new Error(error.message)
       }
 
-      console.log(`📧 Email sent to ${to} - ID: ${data.id}`)
-      return data
+      const response = await sgMail.send(msg)
+      console.log(`📧 Email sent to ${to} - Status: ${response[0].statusCode}`)
+      return { id: response[0].headers['x-message-id'], statusCode: response[0].statusCode }
     } catch (error) {
       console.error('📧 Failed to send email:', error.message)
+      if (error.response) {
+        console.error('📧 SendGrid error details:', error.response.body)
+      }
       throw error
     }
   }
@@ -76,21 +82,21 @@ class EmailService {
           <p>Hi <span class="highlight">${name}</span>,</p>
           <p>Welcome to PeptiScan! Please verify your email address to unlock all features including personalized peptide recommendations based on AI skin analysis.</p>
           <p style="text-align: center;">
-            <a href="${verifyUrl}" class="button">✓ Verify Email Address</a>
+            <a href="${verifyUrl}" class="button">Verify Email Address</a>
           </p>
           <p style="font-size: 14px;">Or copy and paste this link into your browser:</p>
           <div class="link">${verifyUrl}</div>
-          <p style="font-size: 13px; color: #64748b;">⏱️ This link will expire in 24 hours.</p>
+          <p style="font-size: 13px; color: #64748b;">This link will expire in 24 hours.</p>
           <div class="footer">
             <p>If you didn't create an account, you can safely ignore this email.</p>
-            <p style="margin-top: 12px;">© ${new Date().getFullYear()} PeptiScan. All rights reserved.</p>
+            <p style="margin-top: 12px;">&copy; ${new Date().getFullYear()} PeptiScan. All rights reserved.</p>
           </div>
         </div>
       </body>
       </html>
     `
 
-    return this.sendEmail(email, '✓ Verify Your Email - PeptiScan', html)
+    return this.sendEmail(email, 'Verify Your Email - PeptiScan', html)
   }
 
   async sendPasswordResetEmail(email, token, name) {
@@ -126,24 +132,24 @@ class EmailService {
           <p>Hi <span class="highlight">${name}</span>,</p>
           <p>We received a request to reset your password. Click the button below to create a new password:</p>
           <p style="text-align: center;">
-            <a href="${resetUrl}" class="button">🔐 Reset Password</a>
+            <a href="${resetUrl}" class="button">Reset Password</a>
           </p>
           <p style="font-size: 14px;">Or copy and paste this link into your browser:</p>
           <div class="link">${resetUrl}</div>
-          <p style="font-size: 13px; color: #64748b;">⏱️ This link will expire in 1 hour.</p>
+          <p style="font-size: 13px; color: #64748b;">This link will expire in 1 hour.</p>
           <div class="warning">
-            ⚠️ If you didn't request a password reset, please ignore this email. Your password will remain unchanged.
+            If you didn't request a password reset, please ignore this email. Your password will remain unchanged.
           </div>
           <div class="footer">
             <p>For security, this request was received from a web browser.</p>
-            <p style="margin-top: 12px;">© ${new Date().getFullYear()} PeptiScan. All rights reserved.</p>
+            <p style="margin-top: 12px;">&copy; ${new Date().getFullYear()} PeptiScan. All rights reserved.</p>
           </div>
         </div>
       </body>
       </html>
     `
 
-    return this.sendEmail(email, '🔐 Reset Your Password - PeptiScan', html)
+    return this.sendEmail(email, 'Reset Your Password - PeptiScan', html)
   }
 }
 

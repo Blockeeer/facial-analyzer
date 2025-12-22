@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { X, LogIn, UserPlus, Mail, Lock, User, AlertCircle, CheckCircle, Eye, EyeOff, KeyRound, ArrowLeft } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { authApi } from '../../services/auth.api'
 
 export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
+  const navigate = useNavigate()
   const [mode, setMode] = useState(initialMode) // 'login', 'register', 'forgot'
 
   // Sync mode with initialMode when it changes (e.g., when opening login vs register)
@@ -76,6 +78,8 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
     try {
       await register({ email, password, name })
       handleClose()
+      // Navigate to verify-required page after successful registration
+      navigate('/verify-required')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed')
     } finally {

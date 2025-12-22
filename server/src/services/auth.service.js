@@ -156,20 +156,26 @@ class AuthService {
   }
 
   async verifyEmail(token) {
+    console.log(`🔐 Verifying email with token: ${token?.substring(0, 10)}...`)
+
     const user = await User.findOne({
       emailVerificationToken: token,
       emailVerificationExpires: { $gt: Date.now() },
     })
 
     if (!user) {
+      console.log('🔐 No user found with this token or token expired')
       throw new Error('Invalid or expired verification token')
     }
+
+    console.log(`🔐 Found user: ${user.email}, updating verification status...`)
 
     user.isEmailVerified = true
     user.emailVerificationToken = undefined
     user.emailVerificationExpires = undefined
     await user.save()
 
+    console.log(`✅ Email verified successfully for: ${user.email}`)
     return user
   }
 
@@ -196,6 +202,7 @@ class AuthService {
     const user = await User.findOne({ email })
     if (!user) {
       // Don't reveal if user exists
+      console.log(`📧 Forgot password request for non-existent email: ${email}`)
       return
     }
 
@@ -205,7 +212,14 @@ class AuthService {
     user.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
     await user.save()
 
-    await emailService.sendPasswordResetEmail(email, resetToken, user.name)
+    console.log(`📧 Sending password reset email to: ${email}`)
+    try {
+      await emailService.sendPasswordResetEmail(email, resetToken, user.name)
+      console.log(`📧 Password reset email sent successfully to: ${email}`)
+    } catch (error) {
+      console.error(`📧 Failed to send password reset email to ${email}:`, error.message)
+      // Don't throw - we still want to return success to not reveal if email exists
+    }
   }
 
   async resetPassword(token, newPassword) {

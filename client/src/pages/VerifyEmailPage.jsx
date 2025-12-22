@@ -1,16 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { CheckCircle, AlertCircle, Mail, Loader2 } from 'lucide-react'
 import { authApi } from '../services/auth.api'
+import { useAuth } from '../context/AuthContext'
 
 export default function VerifyEmailPage() {
   const [searchParams] = useSearchParams()
   const [status, setStatus] = useState('verifying') // 'verifying', 'success', 'error'
   const [error, setError] = useState('')
+  const verificationAttempted = useRef(false)
+  const { refreshAuth } = useAuth()
 
   const token = searchParams.get('token')
 
   useEffect(() => {
+    // Prevent duplicate verification attempts (React 18 Strict Mode)
+    if (verificationAttempted.current) return
+    verificationAttempted.current = true
+
     const verifyEmail = async () => {
       if (!token) {
         setStatus('error')
@@ -22,6 +29,8 @@ export default function VerifyEmailPage() {
         const response = await authApi.verifyEmail(token)
         if (response.success) {
           setStatus('success')
+          // Refresh auth to update isEmailVerified status
+          await refreshAuth()
         } else {
           setStatus('error')
           setError(response.error || 'Failed to verify email')
@@ -33,7 +42,7 @@ export default function VerifyEmailPage() {
     }
 
     verifyEmail()
-  }, [token])
+  }, [token, refreshAuth])
 
   if (status === 'verifying') {
     return (
