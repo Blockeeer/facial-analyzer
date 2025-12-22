@@ -52,13 +52,20 @@ export function AuthProvider({ children }) {
     return () => clearInterval(refreshInterval)
   }, [accessToken, refreshAuth])
 
+  const getErrorMessage = (error) => {
+    if (!error) return null
+    if (typeof error === 'string') return error
+    if (error.message) return error.message
+    return 'An error occurred'
+  }
+
   const login = async (credentials) => {
     const response = await authApi.login(credentials)
     if (response.success && response.data) {
       setUser(response.data.user)
       setAccessToken(response.data.accessToken)
     } else {
-      throw new Error(response.error || 'Login failed')
+      throw new Error(getErrorMessage(response.error) || 'Login failed')
     }
   }
 
@@ -68,7 +75,7 @@ export function AuthProvider({ children }) {
       setUser(response.data.user)
       setAccessToken(response.data.accessToken)
     } else {
-      throw new Error(response.error || 'Registration failed')
+      throw new Error(getErrorMessage(response.error) || 'Registration failed')
     }
   }
 
