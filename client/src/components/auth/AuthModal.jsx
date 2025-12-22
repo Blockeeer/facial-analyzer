@@ -180,18 +180,9 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
               </div>
 
               <div>
-                <div className="flex items-center justify-between mb-1.5 sm:mb-2">
-                  <label htmlFor="login-password" className="block text-sm font-medium text-dark-300">
-                    Password
-                  </label>
-                  <button
-                    type="button"
-                    onClick={() => switchMode('forgot')}
-                    className="text-xs sm:text-sm text-primary-400 hover:text-primary-300 transition-colors"
-                  >
-                    Forgot password?
-                  </button>
-                </div>
+                <label htmlFor="login-password" className="block text-sm font-medium text-dark-300 mb-1.5 sm:mb-2">
+                  Password
+                </label>
                 <div className="relative">
                   <Lock className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-dark-500" />
                   <input
@@ -211,6 +202,15 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
                     className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-dark-500 hover:text-dark-300 transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
+                  </button>
+                </div>
+                <div className="flex justify-end mt-2">
+                  <button
+                    type="button"
+                    onClick={() => switchMode('forgot')}
+                    className="text-xs sm:text-sm text-primary-400 hover:text-primary-300 transition-colors"
+                  >
+                    Forgot password?
                   </button>
                 </div>
               </div>
