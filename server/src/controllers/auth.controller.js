@@ -1,9 +1,11 @@
 import { authService } from '../services/auth.service.js'
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 const cookieOptions = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'lax',
+  secure: isProduction, // Must be true for sameSite: 'none'
+  sameSite: isProduction ? 'none' : 'lax', // 'none' for cross-origin in production
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   path: '/',
 }
@@ -11,8 +13,8 @@ const cookieOptions = {
 // Options for clearing cookies (without maxAge)
 const clearCookieOptions = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'lax',
+  secure: isProduction,
+  sameSite: isProduction ? 'none' : 'lax',
   path: '/',
 }
 
