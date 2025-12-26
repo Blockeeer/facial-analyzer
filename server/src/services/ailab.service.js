@@ -12,13 +12,29 @@ class AILabService {
   }
 
   async prepareImage(imageBuffer) {
-    // AILab API ONLY accepts JPEG/JPG - must convert all images to JPEG
-    console.log('🔄 Converting image to JPEG...')
-    const jpegBuffer = await sharp(imageBuffer)
-      .rotate() // Auto-rotate based on EXIF orientation
-      .jpeg({ quality: 95 }) // Convert to JPEG with high quality
-      .toBuffer()
-    console.log(`✅ Image converted to JPEG: ${imageBuffer.length} bytes -> ${jpegBuffer.length} bytes`)
+    // AILab API ONLY accepts JPEG/JPG and has size limits
+    console.log('🔄 Preparing image for AILab API...')
+
+    // Get original dimensions
+    const metadata = await sharp(imageBuffer).metadata()
+    console.log(`📐 Original dimensions: ${metadata.width} x ${metadata.height}`)
+
+    // Build sharp pipeline
+    let pipeline = sharp(imageBuffer).rotate() // Auto-rotate based on EXIF
+
+    // AILab API fails on large images - resize if larger than 2048px
+    const MAX_DIMENSION = 2048
+    if (metadata.width > MAX_DIMENSION || metadata.height > MAX_DIMENSION) {
+      console.log(`📏 Resizing to max ${MAX_DIMENSION}px...`)
+      pipeline = pipeline.resize(MAX_DIMENSION, MAX_DIMENSION, { fit: 'inside' })
+    }
+
+    // Convert to JPEG
+    const jpegBuffer = await pipeline.jpeg({ quality: 90 }).toBuffer()
+
+    const newMetadata = await sharp(jpegBuffer).metadata()
+    console.log(`✅ Image prepared: ${metadata.width}x${metadata.height} -> ${newMetadata.width}x${newMetadata.height}, ${jpegBuffer.length} bytes`)
+
     return jpegBuffer
   }
 
