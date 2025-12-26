@@ -12,10 +12,24 @@ class AILabService {
   }
 
   async convertToJpeg(imageBuffer) {
-    // Convert any image format to JPEG for AILab API compatibility
+    // Check if already JPEG by looking at magic bytes
+    const isJpeg = imageBuffer[0] === 0xFF && imageBuffer[1] === 0xD8 && imageBuffer[2] === 0xFF
+
+    if (isJpeg) {
+      console.log('✅ Image is already JPEG, applying orientation fix only...')
+      // Just fix orientation without re-encoding (preserves quality)
+      const jpegBuffer = await sharp(imageBuffer)
+        .rotate() // Auto-rotate based on EXIF orientation
+        .toBuffer()
+      console.log(`✅ Image processed: ${imageBuffer.length} bytes -> ${jpegBuffer.length} bytes`)
+      return jpegBuffer
+    }
+
+    // Convert non-JPEG to JPEG
     console.log('🔄 Converting image to JPEG format...')
     const jpegBuffer = await sharp(imageBuffer)
-      .jpeg({ quality: 90 })
+      .rotate() // Auto-rotate based on EXIF orientation
+      .jpeg({ quality: 95 }) // Higher quality
       .toBuffer()
     console.log(`✅ Image converted: ${imageBuffer.length} bytes -> ${jpegBuffer.length} bytes`)
     return jpegBuffer
