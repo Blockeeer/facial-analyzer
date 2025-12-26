@@ -56,11 +56,24 @@ app.get('/api/health', (_, res) => {
 // Error handling
 app.use((err, _req, res, _next) => {
   console.error('Error:', err.message)
-  res.status(500).json({
+
+  // Check for known validation errors and return 400 instead of 500
+  const validationErrors = [
+    'Invalid image. Please upload a clear face photo.',
+    'No face detected in the image. Please upload a clear face photo.',
+    'Invalid AILab API key',
+    'API rate limit exceeded',
+    'Analysis timed out',
+  ]
+
+  const isValidationError = validationErrors.some(msg => err.message?.includes(msg))
+  const statusCode = err.statusCode || (isValidationError ? 400 : 500)
+
+  res.status(statusCode).json({
     success: false,
-    error: process.env.NODE_ENV === 'production'
-      ? 'Internal server error'
-      : err.message,
+    error: isValidationError || process.env.NODE_ENV !== 'production'
+      ? err.message
+      : 'Internal server error',
   })
 })
 

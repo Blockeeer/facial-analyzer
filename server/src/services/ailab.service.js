@@ -79,6 +79,11 @@ class AILabService {
         } else if (status === 429) {
           throw new Error('API rate limit exceeded. Please try again later.')
         } else if (status === 400) {
+          // Provide more specific error messages based on error code
+          const errorCode = errorData?.error_code_str || ''
+          if (errorCode === 'PROCESSING_FAILURE' || errorMsg === 'Processing failed.') {
+            throw new Error('No face detected in the image. Please upload a clear face photo with good lighting.')
+          }
           throw new Error('Invalid image. Please upload a clear face photo.')
         } else if (error.code === 'ECONNABORTED') {
           throw new Error('Analysis timed out. Please try again.')
