@@ -11,28 +11,30 @@ class AILabService {
     return process.env.AILAB_API_KEY || ''
   }
 
-  async convertToJpeg(imageBuffer) {
-    // Check if already JPEG by looking at magic bytes
-    const isJpeg = imageBuffer[0] === 0xFF && imageBuffer[1] === 0xD8 && imageBuffer[2] === 0xFF
-
-    if (isJpeg) {
-      console.log('✅ Image is already JPEG, applying orientation fix only...')
-      // Just fix orientation without re-encoding (preserves quality)
-      const jpegBuffer = await sharp(imageBuffer)
-        .rotate() // Auto-rotate based on EXIF orientation
-        .toBuffer()
-      console.log(`✅ Image processed: ${imageBuffer.length} bytes -> ${jpegBuffer.length} bytes`)
-      return jpegBuffer
-    }
-
-    // Convert non-JPEG to JPEG
-    console.log('🔄 Converting image to JPEG format...')
-    const jpegBuffer = await sharp(imageBuffer)
+  async prepareImage(imageBuffer) {
+    // Just fix orientation based on EXIF data - no format conversion needed
+    // AILab API accepts JPEG, PNG, BMP, WebP
+    console.log('🔄 Preparing image (fixing orientation)...')
+    const processedBuffer = await sharp(imageBuffer)
       .rotate() // Auto-rotate based on EXIF orientation
-      .jpeg({ quality: 95 }) // Higher quality
       .toBuffer()
-    console.log(`✅ Image converted: ${imageBuffer.length} bytes -> ${jpegBuffer.length} bytes`)
-    return jpegBuffer
+    console.log(`✅ Image prepared: ${imageBuffer.length} bytes -> ${processedBuffer.length} bytes`)
+    return processedBuffer
+  }
+
+  getImageType(buffer) {
+    // Detect image type from magic bytes
+    if (buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF) {
+      return { ext: 'jpg', mime: 'image/jpeg' }
+    }
+    if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) {
+      return { ext: 'png', mime: 'image/png' }
+    }
+    if (buffer[0] === 0x52 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x46) {
+      return { ext: 'webp', mime: 'image/webp' }
+    }
+    // Default to JPEG
+    return { ext: 'jpg', mime: 'image/jpeg' }
   }
 
   async analyzeFace(imageBuffer) {
@@ -49,14 +51,15 @@ class AILabService {
       console.log('🔄 Analyzing skin with AILab Tools API...')
       console.log(`📍 Endpoint: ${this.endpoint}`)
 
-      // Convert image to JPEG (AILab only accepts JPEG/JPG)
-      const jpegBuffer = await this.convertToJpeg(imageBuffer)
+      // Prepare image (fix orientation only, keep original format)
+      const processedBuffer = await this.prepareImage(imageBuffer)
+      const imageType = this.getImageType(processedBuffer)
 
       // Create form data with image
       const formData = new FormData()
-      formData.append('image', jpegBuffer, {
-        filename: 'face.jpg',
-        contentType: 'image/jpeg',
+      formData.append('image', processedBuffer, {
+        filename: `face.${imageType.ext}`,
+        contentType: imageType.mime,
       })
 
       const response = await axios.post(this.endpoint, formData, {
