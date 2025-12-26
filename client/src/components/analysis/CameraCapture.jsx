@@ -1,12 +1,13 @@
 import { useRef, useState, useCallback } from 'react'
 import Webcam from 'react-webcam'
-import { Camera, RotateCcw, Check, SwitchCamera, Sparkles } from 'lucide-react'
+import { Camera, RotateCcw, Check, SwitchCamera, Sparkles, AlertCircle } from 'lucide-react'
 
 export default function CameraCapture({ onCapture }) {
   const webcamRef = useRef(null)
   const [capturedImage, setCapturedImage] = useState(null)
   const [facingMode, setFacingMode] = useState('user')
   const [isReady, setIsReady] = useState(false)
+  const [cameraError, setCameraError] = useState(null)
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot()
@@ -35,6 +36,33 @@ export default function CameraCapture({ onCapture }) {
     facingMode,
   }
 
+  // Show error state if camera access failed
+  if (cameraError) {
+    return (
+      <div className="flex flex-col items-center gap-6">
+        <div className="w-full max-w-md aspect-square rounded-2xl overflow-hidden bg-dark-800 shadow-2xl ring-4 ring-dark-700 flex flex-col items-center justify-center p-8 text-center">
+          <div className="w-16 h-16 rounded-full bg-red-900/30 flex items-center justify-center mb-4">
+            <AlertCircle className="w-8 h-8 text-red-400" />
+          </div>
+          <h3 className="text-xl font-semibold text-white mb-2">Camera Access Denied</h3>
+          <p className="text-dark-400 mb-6">
+            Please allow camera access in your browser settings to take a photo, or use the upload option instead.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-white bg-gradient-to-r from-primary-600 to-primary-500 shadow-glow hover:shadow-glow-lg transition-all"
+          >
+            <Camera className="w-5 h-5" />
+            Try Again
+          </button>
+        </div>
+        <p className="text-dark-500 text-sm">
+          Tip: Switch to the "Upload Photo" tab to select an image from your device
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col items-center gap-6">
       <div className="relative w-full max-w-md aspect-square rounded-2xl overflow-hidden bg-dark-800 shadow-2xl ring-4 ring-dark-700">
@@ -54,6 +82,10 @@ export default function CameraCapture({ onCapture }) {
               className="w-full h-full object-cover"
               mirrored={facingMode === 'user'}
               onUserMedia={() => setIsReady(true)}
+              onUserMediaError={(error) => {
+                console.error('Camera error:', error)
+                setCameraError(error?.message || 'Camera access denied')
+              }}
             />
 
             {/* Face Guide Overlay */}

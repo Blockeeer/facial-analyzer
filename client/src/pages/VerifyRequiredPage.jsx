@@ -62,7 +62,7 @@ export default function VerifyRequiredPage() {
       <div className="max-w-md w-full">
         <div className="bg-dark-800/50 backdrop-blur-sm rounded-3xl shadow-2xl border border-dark-700 p-8 text-center">
           {/* Icon */}
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 mb-6 shadow-lg">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 mb-6 shadow-glow-lg">
             <Mail className="w-10 h-10 text-white" />
           </div>
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { getAnalysisHistory, deleteAnalysisResult } from '../services/api'
-import { Calendar, Trash2, Eye, AlertCircle, Dna, Clock } from 'lucide-react'
+import { Calendar, Trash2, Eye, AlertCircle, Dna, Clock, X } from 'lucide-react'
 
 export default function HistoryPage() {
   const { accessToken } = useAuth()
@@ -12,6 +12,7 @@ export default function HistoryPage() {
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [deleting, setDeleting] = useState(null)
+  const [deleteConfirm, setDeleteConfirm] = useState(null)
 
   useEffect(() => {
     const loadHistory = async () => {
@@ -37,12 +38,17 @@ export default function HistoryPage() {
     loadHistory()
   }, [accessToken, page])
 
-  const handleDelete = async (id) => {
-    if (!accessToken || !confirm('Are you sure you want to delete this result?')) {
-      return
-    }
+  const handleDeleteClick = (id) => {
+    setDeleteConfirm(id)
+  }
 
+  const handleDeleteConfirm = async () => {
+    if (!accessToken || !deleteConfirm) return
+
+    const id = deleteConfirm
+    setDeleteConfirm(null)
     setDeleting(id)
+
     try {
       await deleteAnalysisResult(id, accessToken)
       setResults(results.filter((r) => r.id !== id))
@@ -51,6 +57,10 @@ export default function HistoryPage() {
     } finally {
       setDeleting(null)
     }
+  }
+
+  const handleDeleteCancel = () => {
+    setDeleteConfirm(null)
   }
 
   const formatDate = (dateString) => {
@@ -177,7 +187,7 @@ export default function HistoryPage() {
                         View
                       </Link>
                       <button
-                        onClick={() => handleDelete(result.id)}
+                        onClick={() => handleDeleteClick(result.id)}
                         disabled={deleting === result.id}
                         className="p-2 text-red-400 hover:bg-red-900/20 rounded-lg transition-colors disabled:opacity-50"
                         title="Delete"
@@ -219,6 +229,55 @@ export default function HistoryPage() {
           </>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={handleDeleteCancel}
+          />
+
+          {/* Modal */}
+          <div className="relative bg-dark-800 rounded-2xl border border-dark-700 shadow-2xl max-w-sm w-full p-6 animate-fadeIn">
+            <button
+              onClick={handleDeleteCancel}
+              className="absolute top-4 right-4 text-dark-400 hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-red-900/30 mb-4">
+                <Trash2 className="w-7 h-7 text-red-400" />
+              </div>
+
+              <h3 className="text-xl font-semibold text-white mb-2">
+                Delete Analysis?
+              </h3>
+              <p className="text-dark-400 mb-6">
+                This action cannot be undone. The analysis result will be permanently removed.
+              </p>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={handleDeleteCancel}
+                  className="flex-1 py-2.5 bg-dark-700/50 text-white font-medium rounded-xl border border-dark-600 hover:bg-dark-700 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDeleteConfirm}
+                  className="flex-1 py-2.5 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
