@@ -12,29 +12,14 @@ class AILabService {
   }
 
   async prepareImage(imageBuffer) {
-    // Just fix orientation based on EXIF data - no format conversion needed
-    // AILab API accepts JPEG, PNG, BMP, WebP
-    console.log('🔄 Preparing image (fixing orientation)...')
-    const processedBuffer = await sharp(imageBuffer)
+    // AILab API ONLY accepts JPEG/JPG - must convert all images to JPEG
+    console.log('🔄 Converting image to JPEG...')
+    const jpegBuffer = await sharp(imageBuffer)
       .rotate() // Auto-rotate based on EXIF orientation
+      .jpeg({ quality: 95 }) // Convert to JPEG with high quality
       .toBuffer()
-    console.log(`✅ Image prepared: ${imageBuffer.length} bytes -> ${processedBuffer.length} bytes`)
-    return processedBuffer
-  }
-
-  getImageType(buffer) {
-    // Detect image type from magic bytes
-    if (buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF) {
-      return { ext: 'jpg', mime: 'image/jpeg' }
-    }
-    if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) {
-      return { ext: 'png', mime: 'image/png' }
-    }
-    if (buffer[0] === 0x52 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x46) {
-      return { ext: 'webp', mime: 'image/webp' }
-    }
-    // Default to JPEG
-    return { ext: 'jpg', mime: 'image/jpeg' }
+    console.log(`✅ Image converted to JPEG: ${imageBuffer.length} bytes -> ${jpegBuffer.length} bytes`)
+    return jpegBuffer
   }
 
   async analyzeFace(imageBuffer) {
@@ -51,15 +36,14 @@ class AILabService {
       console.log('🔄 Analyzing skin with AILab Tools API...')
       console.log(`📍 Endpoint: ${this.endpoint}`)
 
-      // Prepare image (fix orientation only, keep original format)
-      const processedBuffer = await this.prepareImage(imageBuffer)
-      const imageType = this.getImageType(processedBuffer)
+      // Convert image to JPEG (AILab API only accepts JPEG)
+      const jpegBuffer = await this.prepareImage(imageBuffer)
 
       // Create form data with image
       const formData = new FormData()
-      formData.append('image', processedBuffer, {
-        filename: `face.${imageType.ext}`,
-        contentType: imageType.mime,
+      formData.append('image', jpegBuffer, {
+        filename: 'face.jpg',
+        contentType: 'image/jpeg',
       })
 
       const response = await axios.post(this.endpoint, formData, {
