@@ -25,11 +25,11 @@ function App() {
             {/* Auth routes - requires login but not verification */}
             <Route path="/verify-required" element={<VerifyRequiredPage />} />
 
-            {/* Protected routes - requires login AND email verification */}
+            {/* Protected routes - requires login only (email verification disabled) */}
             <Route
               path="/analyze"
               element={
-                <ProtectedRoute requireVerification>
+                <ProtectedRoute>
                   <AnalysisPage />
                 </ProtectedRoute>
               }
@@ -37,7 +37,7 @@ function App() {
             <Route
               path="/results/:id"
               element={
-                <ProtectedRoute requireVerification>
+                <ProtectedRoute>
                   <ResultsPage />
                 </ProtectedRoute>
               }
@@ -45,7 +45,7 @@ function App() {
             <Route
               path="/history"
               element={
-                <ProtectedRoute requireVerification>
+                <ProtectedRoute>
                   <HistoryPage />
                 </ProtectedRoute>
               }

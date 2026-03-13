@@ -18,26 +18,25 @@ class AuthService {
       throw new Error('Email already registered')
     }
 
-    // Generate email verification token
-    const verificationToken = crypto.randomBytes(32).toString('hex')
-    const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
+    // Email verification disabled - users are auto-verified on register
+    // const verificationToken = crypto.randomBytes(32).toString('hex')
+    // const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
 
-    // Create new user with verification token
     const user = await User.create({
       email,
       password,
       name,
-      isEmailVerified: false,
-      emailVerificationToken: verificationToken,
-      emailVerificationExpires: verificationExpires,
+      isEmailVerified: true, // Auto-verified (email verification disabled)
+      // emailVerificationToken: verificationToken,
+      // emailVerificationExpires: verificationExpires,
     })
 
-    // Send verification email
-    try {
-      await emailService.sendVerificationEmail(email, verificationToken, name)
-    } catch (error) {
-      console.error('Failed to send verification email:', error)
-    }
+    // Email verification disabled
+    // try {
+    //   await emailService.sendVerificationEmail(email, verificationToken, name)
+    // } catch (error) {
+    //   console.error('Failed to send verification email:', error)
+    // }
 
     // Generate tokens
     const tokens = this.generateTokens(user)

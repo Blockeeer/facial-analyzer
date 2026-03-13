@@ -8,7 +8,8 @@ export default function EmailVerificationBanner() {
   const [isResending, setIsResending] = useState(false)
   const [message, setMessage] = useState('')
 
-  if (!user || isEmailVerified) {
+  // Email verification disabled
+  if (!user || isEmailVerified || true) {
     return null
   }
 
