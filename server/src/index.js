@@ -28,6 +28,8 @@ const allowedOrigins = [
   process.env.CLIENT_URL || 'http://localhost:5173',
   'http://localhost:5173',
   'http://localhost:5174',
+  'https://pepti-scan.vercel.app',
+  'https://facial-analyzer-three.vercel.app',
 ]
 
 app.use(cors({
