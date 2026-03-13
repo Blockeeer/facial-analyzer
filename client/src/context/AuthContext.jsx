@@ -96,7 +96,7 @@ export function AuthProvider({ children }) {
         user,
         accessToken,
         isAuthenticated: !!user,
-        isEmailVerified: user?.isEmailVerified ?? false,
+        isEmailVerified: true,
         isLoading,
         login,
         register,
