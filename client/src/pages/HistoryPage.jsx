@@ -139,74 +139,78 @@ export default function HistoryPage() {
               {results.map((result) => (
                 <div
                   key={result.id}
-                  className="group bg-dark-800/50 backdrop-blur-sm rounded-2xl border border-dark-700 hover:border-primary-600/40 hover:bg-dark-800/70 transition-all duration-200"
+                  className="group bg-dark-800/50 backdrop-blur-sm rounded-2xl border border-dark-700 hover:border-primary-600/40 hover:bg-dark-800/70 transition-all duration-200 overflow-hidden"
                 >
-                  <div className="flex items-center gap-4 p-4">
+                  <div className="flex items-stretch gap-0">
                     {/* Thumbnail */}
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 w-24">
                       {result.imageData ? (
                         <img
                           src={result.imageData}
                           alt="Analysis"
-                          className="w-16 h-16 rounded-xl object-cover border-2 border-dark-600 group-hover:border-primary-600/40 transition-colors"
+                          className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-16 h-16 rounded-xl bg-dark-700 border-2 border-dark-600 flex items-center justify-center">
+                        <div className="w-full h-full min-h-[96px] bg-dark-700 flex items-center justify-center">
                           <Dna className="w-6 h-6 text-dark-500" />
                         </div>
                       )}
                     </div>
 
                     {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 text-xs text-dark-400 mb-2">
-                        <Calendar className="w-3.5 h-3.5" />
-                        {formatDate(result.createdAt)}
-                      </div>
-
-                      <div className="flex items-center gap-3 flex-wrap">
+                    <div className="flex-1 min-w-0 p-3 flex flex-col justify-between gap-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5 text-xs text-dark-400">
+                          <Calendar className="w-3 h-3 flex-shrink-0" />
+                          <span className="truncate">{formatDate(result.createdAt)}</span>
+                        </div>
                         {result.overallScore !== undefined && (
-                          <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm font-semibold border ${getScoreBg(result.overallScore)} ${getScoreColor(result.overallScore)}`}>
-                            Score: {result.overallScore}%
-                          </span>
-                        )}
-                        {result.mainIssues && result.mainIssues.slice(0, 2).map((issue, index) => (
-                          <span
-                            key={issue._id || index}
-                            className="px-2.5 py-1 bg-dark-700/60 text-dark-300 rounded-lg text-xs border border-dark-600"
-                          >
-                            {issue.title}
-                          </span>
-                        ))}
-                        {result.mainIssues && result.mainIssues.length > 2 && (
-                          <span className="px-2.5 py-1 bg-dark-700/40 text-dark-500 rounded-lg text-xs border border-dark-600">
-                            +{result.mainIssues.length - 2} more
+                          <span className={`flex-shrink-0 px-2 py-0.5 rounded-lg text-xs font-bold border ${getScoreBg(result.overallScore)} ${getScoreColor(result.overallScore)}`}>
+                            {result.overallScore}%
                           </span>
                         )}
                       </div>
-                    </div>
 
-                    {/* Actions */}
-                    <div className="flex items-center gap-2 flex-shrink-0">
-                      <Link
-                        to={`/results/${result.id}`}
-                        className="inline-flex items-center gap-1.5 px-3 py-2 bg-primary-600/10 text-primary-400 font-medium rounded-xl border border-primary-600/30 hover:bg-primary-600/20 hover:text-primary-300 transition-all text-sm"
-                      >
-                        <Eye className="w-4 h-4" />
-                        View
-                      </Link>
-                      <button
-                        onClick={() => handleDeleteClick(result.id)}
-                        disabled={deleting === result.id}
-                        className="p-2 text-dark-500 hover:text-red-400 hover:bg-red-900/20 rounded-xl border border-transparent hover:border-red-700/30 transition-all disabled:opacity-50"
-                        title="Delete"
-                      >
-                        {deleting === result.id ? (
-                          <span className="w-4 h-4 border-2 border-red-400/30 border-t-red-400 rounded-full animate-spin block" />
-                        ) : (
-                          <Trash2 className="w-4 h-4" />
-                        )}
-                      </button>
+                      {result.mainIssues && result.mainIssues.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5">
+                          {result.mainIssues.slice(0, 2).map((issue, index) => (
+                            <span
+                              key={issue._id || index}
+                              className="px-2 py-0.5 bg-dark-700/60 text-dark-300 rounded-md text-xs border border-dark-600 truncate max-w-[120px]"
+                            >
+                              {issue.title}
+                            </span>
+                          ))}
+                          {result.mainIssues.length > 2 && (
+                            <span className="px-2 py-0.5 bg-dark-700/40 text-dark-500 rounded-md text-xs border border-dark-600">
+                              +{result.mainIssues.length - 2}
+                            </span>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Actions */}
+                      <div className="flex items-center gap-2 pt-1">
+                        <Link
+                          to={`/results/${result.id}`}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-600/15 text-primary-400 font-medium rounded-lg border border-primary-600/30 hover:bg-primary-600/25 hover:text-primary-300 transition-all text-xs"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          View Results
+                        </Link>
+                        <button
+                          onClick={() => handleDeleteClick(result.id)}
+                          disabled={deleting === result.id}
+                          className="p-1.5 text-dark-500 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all disabled:opacity-50"
+                          title="Delete"
+                        >
+                          {deleting === result.id ? (
+                            <span className="w-3.5 h-3.5 border-2 border-red-400/30 border-t-red-400 rounded-full animate-spin block" />
+                          ) : (
+                            <Trash2 className="w-3.5 h-3.5" />
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
