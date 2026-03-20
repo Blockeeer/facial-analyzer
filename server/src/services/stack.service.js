@@ -9,7 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 let productKnowledge = ''
 try {
   productKnowledge = readFileSync(
-    join(__dirname, '..', 'data', 'PepsLab_Complete_Product_Guides.md'),
+    join(__dirname, '..', 'data', 'product-catalog.md'),
     'utf-8'
   )
 } catch (err) {
@@ -39,7 +39,15 @@ class StackService {
 
 ## PEPSLAB PRODUCT KNOWLEDGE BASE
 
-You MUST ONLY recommend products that exist in this catalog. Use the exact product names, dosages, reconstitution instructions, and protocols from this document:
+You MUST ONLY recommend products that exist in this catalog. Use the exact product names, dosages, reconstitution instructions, and protocols from this document.
+
+STANDARD INFO (applies to all injectable products unless noted otherwise):
+- Reconstitution: inject BAC water slowly along vial wall, do not shake, roll gently
+- Default storage: room temp before reconstitution, 2-8°C after, use within 30 days (exceptions noted per product)
+- Injection: subcutaneous (abdomen, thigh, or back of arm), rotate sites, 45-90° angle
+- Syringes: insulin syringes 29G-31G (BD Ultra-Fine or similar)
+
+Product catalog:
 
 <product_catalog>
 ${productKnowledge}
