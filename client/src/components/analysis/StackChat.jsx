@@ -5,7 +5,7 @@ import { sendStackMessage } from '../../services/api'
 
 const INITIAL_MESSAGE = {
   role: 'assistant',
-  content: `Hey! I'm your peptide stack advisor. I'll ask you a few questions to build a personalized peptide protocol just for you.\n\nLet's start — **what are your main goals?** For example:\n- Anti-aging / skin rejuvenation\n- Muscle growth & recovery\n- Fat loss\n- Healing & injury recovery\n- Sleep & wellness\n- Hair growth\n\nYou can pick one or more!`,
+  content: `Hey! I'm your PepsLab stack advisor. I'll ask you a few questions to build a personalized peptide protocol using products from **pepslab.ca**.\n\nLet's start — **what are your main goals?** For example:\n- Anti-aging / skin rejuvenation\n- Muscle growth & recovery\n- Fat loss\n- Healing & injury recovery\n- Sleep & wellness\n- Hair growth\n\nYou can pick one or more!`,
 }
 
 export default function StackChat() {
