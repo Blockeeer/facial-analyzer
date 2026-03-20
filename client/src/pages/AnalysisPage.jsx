@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import ImageUploader from '../components/analysis/ImageUploader'
 import CameraCapture from '../components/analysis/CameraCapture'
+import StackChat from '../components/analysis/StackChat'
 import AnalysisLoader from '../components/analysis/AnalysisLoader'
 import { analyzeImage } from '../services/api'
-import { Camera, Upload, Sparkles, Shield, Zap, Dna } from 'lucide-react'
+import { Camera, Upload, Sparkles, Shield, Zap, Dna, MessageCircle } from 'lucide-react'
 
 export default function AnalysisPage() {
   const [mode, setMode] = useState('upload')
@@ -55,25 +56,36 @@ export default function AnalysisPage() {
         <div className="flex p-1 bg-dark-700/50 rounded-2xl border border-dark-600 mb-5">
           <button
             onClick={() => setMode('upload')}
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl font-medium transition-all duration-200 text-sm ${
+            className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl font-medium transition-all duration-200 text-sm ${
               mode === 'upload'
                 ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-600/25'
                 : 'text-dark-400 hover:text-white'
             }`}
           >
             <Upload className="w-4 h-4" />
-            Upload Photo
+            Upload
           </button>
           <button
             onClick={() => setMode('camera')}
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl font-medium transition-all duration-200 text-sm ${
+            className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl font-medium transition-all duration-200 text-sm ${
               mode === 'camera'
                 ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-600/25'
                 : 'text-dark-400 hover:text-white'
             }`}
           >
             <Camera className="w-4 h-4" />
-            Use Camera
+            Camera
+          </button>
+          <button
+            onClick={() => setMode('stack')}
+            className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl font-medium transition-all duration-200 text-sm ${
+              mode === 'stack'
+                ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-600/25'
+                : 'text-dark-400 hover:text-white'
+            }`}
+          >
+            <MessageCircle className="w-4 h-4" />
+            Get Stack
           </button>
         </div>
 
@@ -88,8 +100,10 @@ export default function AnalysisPage() {
         <div className="bg-dark-800/50 backdrop-blur-sm rounded-2xl border border-dark-700 p-4 mb-5">
           {mode === 'upload' ? (
             <ImageUploader onImageSelect={handleImageCapture} />
-          ) : (
+          ) : mode === 'camera' ? (
             <CameraCapture onCapture={handleImageCapture} />
+          ) : (
+            <StackChat />
           )}
         </div>
 

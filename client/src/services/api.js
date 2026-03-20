@@ -84,6 +84,20 @@ export async function deleteAnalysisResult(id, accessToken) {
   }
 }
 
+export async function sendStackMessage(messages, accessToken) {
+  const response = await api.post('/stack-chat', { messages }, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  })
+
+  if (!response.data.success || !response.data.data) {
+    throw new Error(response.data.error || 'Chat failed')
+  }
+
+  return response.data.data
+}
+
 export async function healthCheck() {
   try {
     const response = await api.get('/health')

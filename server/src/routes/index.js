@@ -6,6 +6,7 @@ import {
   getUserHistoryController,
   deleteResultController,
 } from '../controllers/analysis.controller.js'
+import { stackChatController } from '../controllers/stack.controller.js'
 import { authMiddleware } from '../middleware/auth.middleware.js'
 
 const router = Router()
@@ -32,5 +33,8 @@ router.post('/analyze', authMiddleware, upload.single('image'), analyzeControlle
 router.get('/results', authMiddleware, getUserHistoryController)
 router.get('/results/:id', authMiddleware, getResultController)
 router.delete('/results/:id', authMiddleware, deleteResultController)
+
+// Stack recommendation chat
+router.post('/stack-chat', authMiddleware, stackChatController)
 
 export default router
