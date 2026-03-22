@@ -75,7 +75,7 @@ export default function VerifyRequiredPage() {
           <p className="text-gray-600 mb-2">
             We've sent a verification link to:
           </p>
-          <p className="text-primary-400 font-medium mb-6">
+          <p className="text-primary-600 font-medium mb-6">
             {user?.email || 'your email address'}
           </p>
 
@@ -86,7 +86,7 @@ export default function VerifyRequiredPage() {
 
           {/* Success Message */}
           {message && (
-            <div className="mb-6 p-4 bg-accent-900/30 border border-accent-700/50 rounded-xl flex items-center gap-3 text-accent-400">
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3 text-green-600">
               <CheckCircle className="w-5 h-5 flex-shrink-0" />
               <p className="text-sm">{message}</p>
             </div>
@@ -94,7 +94,7 @@ export default function VerifyRequiredPage() {
 
           {/* Error Message */}
           {error && (
-            <div className="mb-6 p-4 bg-red-900/30 border border-red-700/50 rounded-xl flex items-center gap-3 text-red-400">
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3 text-red-600">
               <AlertCircle className="w-5 h-5 flex-shrink-0" />
               <p className="text-sm">{error}</p>
             </div>

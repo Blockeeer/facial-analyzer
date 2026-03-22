@@ -27,15 +27,15 @@ export default function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-gray-600 hover:text-primary-400 transition-colors font-medium">
+            <Link to="/" className="text-gray-600 hover:text-primary-600 transition-colors font-medium">
               Home
             </Link>
             {isAuthenticated && (
               <>
-                <Link to="/analyze" className="text-gray-600 hover:text-primary-400 transition-colors font-medium">
+                <Link to="/analyze" className="text-gray-600 hover:text-primary-600 transition-colors font-medium">
                   Analyze
                 </Link>
-                <Link to="/history" className="text-gray-600 hover:text-primary-400 transition-colors font-medium">
+                <Link to="/history" className="text-gray-600 hover:text-primary-600 transition-colors font-medium">
                   History
                 </Link>
               </>
@@ -65,7 +65,7 @@ export default function Header() {
                       </div>
                       <Link
                         to="/history"
-                        className="flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-gray-100 hover:text-primary-400 transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-gray-100 hover:text-primary-600 transition-colors"
                         onClick={() => setShowDropdown(false)}
                       >
                         <History className="w-4 h-4" />
@@ -73,7 +73,7 @@ export default function Header() {
                       </Link>
                       <button
                         onClick={handleLogout}
-                        className="flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-red-900/20 w-full transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 w-full transition-colors"
                       >
                         <LogOut className="w-4 h-4" />
                         Sign Out

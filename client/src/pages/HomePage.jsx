@@ -19,9 +19,9 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-900/50 rounded-full border border-primary-700/50 mb-8">
-              <Sparkles className="w-4 h-4 text-primary-400" />
-              <span className="text-primary-300 text-sm font-medium">AI-Powered Skin Analysis</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 rounded-full border border-primary-200 mb-8">
+              <Sparkles className="w-4 h-4 text-primary-600" />
+              <span className="text-primary-700 text-sm font-medium">AI-Powered Skin Analysis</span>
             </div>
 
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
@@ -112,7 +112,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="relative">
-              <div className="w-full aspect-square max-w-md mx-auto rounded-3xl bg-gradient-to-br from-primary-900/50 to-secondary-900/50 border border-gray-200 flex items-center justify-center">
+              <div className="w-full aspect-square max-w-md mx-auto rounded-3xl bg-gradient-to-br from-primary-50 to-secondary-50 border border-gray-200 flex items-center justify-center">
                 <div className="text-center p-8">
                   <div className="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-glow-lg mb-6">
                     <Dna className="w-12 h-12 text-white" />
@@ -129,7 +129,7 @@ export default function HomePage() {
       {/* Trust Section */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-primary-900/30 to-secondary-900/30 rounded-3xl border border-primary-700/30 p-8 md:p-12">
+          <div className="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl border border-primary-200 p-8 md:p-12">
             <div className="flex flex-col md:flex-row items-center justify-center gap-8">
               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-glow-lg flex-shrink-0">
                 <Shield className="w-10 h-10 text-white" />
@@ -186,8 +186,8 @@ function FeatureCard({ icon, iconBg, step, title, description }) {
 function BenefitItem({ text }) {
   return (
     <div className="flex items-center gap-3">
-      <div className="w-6 h-6 rounded-full bg-accent-900/50 flex items-center justify-center flex-shrink-0 border border-accent-700/50">
-        <CheckCircle2 className="w-4 h-4 text-accent-400" />
+      <div className="w-6 h-6 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0 border border-green-200">
+        <CheckCircle2 className="w-4 h-4 text-green-600" />
       </div>
       <span className="text-gray-700">{text}</span>
     </div>

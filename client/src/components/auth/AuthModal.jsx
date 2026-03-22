@@ -145,14 +145,14 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
         {/* Content */}
         <div className="px-5 sm:px-8 pb-6 sm:pb-8">
           {error && (
-            <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-900/30 border border-red-700/50 rounded-xl flex items-center gap-2 sm:gap-3 text-red-400">
+            <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2 sm:gap-3 text-red-600">
               <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
               <p className="text-xs sm:text-sm">{error}</p>
             </div>
           )}
 
           {success && (
-            <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-accent-900/30 border border-accent-700/50 rounded-xl flex items-center gap-2 sm:gap-3 text-accent-400">
+            <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-2 sm:gap-3 text-green-600">
               <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
               <p className="text-xs sm:text-sm">{success}</p>
             </div>
@@ -208,7 +208,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
                   <button
                     type="button"
                     onClick={() => switchMode('forgot')}
-                    className="text-xs sm:text-sm text-primary-400 hover:text-primary-300 transition-colors"
+                    className="text-xs sm:text-sm text-primary-600 hover:text-primary-700 transition-colors"
                   >
                     Forgot password?
                   </button>
@@ -332,12 +332,12 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
                   <div
                     key={index}
                     className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm ${
-                      req.met ? 'text-accent-400' : 'text-gray-400'
+                      req.met ? 'text-green-600' : 'text-gray-400'
                     }`}
                   >
                     <CheckCircle
                       className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${
-                        req.met ? 'text-accent-400' : 'text-gray-300'
+                        req.met ? 'text-green-600' : 'text-gray-300'
                       }`}
                     />
                     {req.text}
@@ -417,7 +417,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
                   Don&apos;t have an account?{' '}
                   <button
                     onClick={() => switchMode('register')}
-                    className="text-primary-400 hover:text-primary-300 font-medium"
+                    className="text-primary-600 hover:text-primary-700 font-medium"
                   >
                     Create one
                   </button>
@@ -427,7 +427,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
                   Already have an account?{' '}
                   <button
                     onClick={() => switchMode('login')}
-                    className="text-primary-400 hover:text-primary-300 font-medium"
+                    className="text-primary-600 hover:text-primary-700 font-medium"
                   >
                     Sign in
                   </button>

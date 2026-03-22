@@ -99,7 +99,7 @@ export default function AnalysisLoader() {
                 index === currentStep
                   ? 'bg-gradient-to-br from-primary-500 to-primary-700 shadow-glow scale-110'
                   : index < currentStep
-                  ? 'bg-accent-900/50 border border-accent-700/50'
+                  ? 'bg-green-50 border border-green-200'
                   : 'bg-gray-100 border border-gray-200'
               }`}
             >
@@ -108,7 +108,7 @@ export default function AnalysisLoader() {
                   index === currentStep
                     ? 'text-white'
                     : index < currentStep
-                    ? 'text-accent-400'
+                    ? 'text-green-600'
                     : 'text-gray-400'
                 }`}
               />
@@ -126,7 +126,7 @@ export default function AnalysisLoader() {
       </div>
 
       {/* Percentage */}
-      <p className="mt-3 text-primary-400 font-medium z-10">
+      <p className="mt-3 text-primary-600 font-medium z-10">
         {Math.round(progress)}%
       </p>
 

@@ -67,15 +67,15 @@ export default function HistoryPage() {
   }
 
   const getScoreColor = (score) => {
-    if (score >= 80) return 'text-emerald-400'
-    if (score >= 60) return 'text-amber-400'
-    return 'text-red-400'
+    if (score >= 80) return 'text-emerald-600'
+    if (score >= 60) return 'text-amber-600'
+    return 'text-red-600'
   }
 
   const getScoreBg = (score) => {
-    if (score >= 80) return 'bg-emerald-900/30 border-emerald-700/40'
-    if (score >= 60) return 'bg-amber-900/30 border-amber-700/40'
-    return 'bg-red-900/30 border-red-700/40'
+    if (score >= 80) return 'bg-emerald-50 border-emerald-200'
+    if (score >= 60) return 'bg-amber-50 border-amber-200'
+    return 'bg-red-50 border-red-200'
   }
 
   if (loading) {
@@ -112,7 +112,7 @@ export default function HistoryPage() {
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-900/30 border border-red-700/50 rounded-xl flex items-center gap-3 text-red-400">
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3 text-red-600">
             <AlertCircle className="w-5 h-5 flex-shrink-0" />
             <p>{error}</p>
           </div>
@@ -193,7 +193,7 @@ export default function HistoryPage() {
                       <div className="flex items-center gap-2 pt-1">
                         <Link
                           to={`/results/${result.id}`}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-600/15 text-primary-400 font-medium rounded-lg border border-primary-600/30 hover:bg-primary-600/25 hover:text-primary-300 transition-all text-xs"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-50 text-primary-600 font-medium rounded-lg border border-primary-200 hover:bg-primary-100 hover:text-primary-700 transition-all text-xs"
                         >
                           <Eye className="w-3.5 h-3.5" />
                           View Results
@@ -201,7 +201,7 @@ export default function HistoryPage() {
                         <button
                           onClick={() => handleDeleteClick(result.id)}
                           disabled={deleting === result.id}
-                          className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all disabled:opacity-50"
+                          className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-50 rounded-lg transition-all disabled:opacity-50"
                           title="Delete"
                         >
                           {deleting === result.id ? (
@@ -258,8 +258,8 @@ export default function HistoryPage() {
               <X className="w-5 h-5" />
             </button>
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-red-900/30 border border-red-700/40 mb-4">
-                <Trash2 className="w-7 h-7 text-red-400" />
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-red-50 border border-red-200 mb-4">
+                <Trash2 className="w-7 h-7 text-red-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Delete Analysis?</h3>
               <p className="text-gray-500 text-sm mb-6">

@@ -91,7 +91,7 @@ export default function AnalysisPage() {
 
         {/* Error Message */}
         {error && (
-          <div className="mb-5 p-3.5 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-center text-sm">
+          <div className="mb-5 p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-600 text-center text-sm">
             {error}
           </div>
         )}
@@ -110,15 +110,15 @@ export default function AnalysisPage() {
         {/* Feature pills */}
         <div className="flex justify-center gap-3 flex-wrap mb-5">
           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/80 rounded-full border border-gray-200 text-xs text-gray-600">
-            <Zap className="w-3.5 h-3.5 text-primary-400" />
+            <Zap className="w-3.5 h-3.5 text-primary-600" />
             Fast Results
           </div>
           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/80 rounded-full border border-gray-200 text-xs text-gray-600">
-            <Shield className="w-3.5 h-3.5 text-accent-400" />
+            <Shield className="w-3.5 h-3.5 text-green-600" />
             Private & Secure
           </div>
           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/80 rounded-full border border-gray-200 text-xs text-gray-600">
-            <Sparkles className="w-3.5 h-3.5 text-secondary-400" />
+            <Sparkles className="w-3.5 h-3.5 text-secondary-600" />
             AI-Powered
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function AnalysisPage() {
         {/* Tips */}
         <div className="bg-gray-50/50 rounded-2xl p-4 border border-gray-200">
           <h3 className="font-semibold text-gray-900 text-sm mb-3 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-primary-400" />
+            <Sparkles className="w-4 h-4 text-primary-600" />
             Tips for Best Results
           </h3>
           <div className="grid grid-cols-2 gap-2">
@@ -137,7 +137,7 @@ export default function AnalysisPage() {
               'Use a plain background if possible',
             ].map((tip, i) => (
               <div key={i} className="flex items-start gap-2">
-                <span className="w-5 h-5 rounded-full bg-primary-600/20 text-primary-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="w-5 h-5 rounded-full bg-primary-100 text-primary-600 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
                   {i + 1}
                 </span>
                 <p className="text-xs text-gray-500 leading-relaxed">{tip}</p>

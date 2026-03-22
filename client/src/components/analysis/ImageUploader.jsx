@@ -84,7 +84,7 @@ export default function ImageUploader({ onImageSelect }) {
       {...getRootProps()}
       className={`relative border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all duration-300 ${
         isDragActive
-          ? 'border-primary-500 bg-primary-900/20 scale-[1.02]'
+          ? 'border-primary-500 bg-primary-50 scale-[1.02]'
           : 'border-gray-200 hover:border-primary-500/50 hover:bg-gray-50'
       }`}
     >
@@ -99,10 +99,10 @@ export default function ImageUploader({ onImageSelect }) {
       <div className="flex flex-col items-center gap-4">
         {isDragActive ? (
           <>
-            <div className="w-16 h-16 rounded-2xl bg-primary-900/50 flex items-center justify-center animate-bounce border border-primary-700/50">
-              <Image className="w-8 h-8 text-primary-400" />
+            <div className="w-16 h-16 rounded-2xl bg-primary-50 flex items-center justify-center animate-bounce border border-primary-200">
+              <Image className="w-8 h-8 text-primary-600" />
             </div>
-            <p className="text-lg font-semibold text-primary-400">Drop your image here</p>
+            <p className="text-lg font-semibold text-primary-600">Drop your image here</p>
           </>
         ) : (
           <>
@@ -112,7 +112,7 @@ export default function ImageUploader({ onImageSelect }) {
             <div>
               <p className="text-base font-semibold text-gray-900 mb-1">Drag & drop your photo here</p>
               <p className="text-sm text-gray-500">
-                or <span className="text-primary-400 font-medium">tap to browse</span> from your device
+                or <span className="text-primary-600 font-medium">tap to browse</span> from your device
               </p>
             </div>
             <div className="flex items-center gap-2 flex-wrap justify-center mt-1">

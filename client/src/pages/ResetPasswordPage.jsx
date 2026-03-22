@@ -92,7 +92,7 @@ export default function ResetPasswordPage() {
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-900/30 border border-red-700/50 rounded-xl flex items-center gap-3 text-red-400">
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3 text-red-600">
             <AlertCircle className="w-5 h-5 flex-shrink-0" />
             <p className="text-sm">{error}</p>
           </div>
@@ -144,11 +144,11 @@ export default function ResetPasswordPage() {
                 <div
                   key={index}
                   className={`flex items-center gap-2 text-sm ${
-                    req.met ? 'text-accent-400' : 'text-gray-400'
+                    req.met ? 'text-green-600' : 'text-gray-400'
                   }`}
                 >
                   <CheckCircle
-                    className={`w-4 h-4 ${req.met ? 'text-accent-400' : 'text-gray-300'}`}
+                    className={`w-4 h-4 ${req.met ? 'text-green-600' : 'text-gray-300'}`}
                   />
                   {req.text}
                 </div>

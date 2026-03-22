@@ -41,10 +41,10 @@ export default function ResultsPage() {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="relative w-20 h-20 mx-auto">
-            <div className="w-20 h-20 rounded-full bg-primary-900/50 flex items-center justify-center animate-pulse">
-              <Dna className="w-10 h-10 text-primary-400" />
+            <div className="w-20 h-20 rounded-full bg-primary-50 flex items-center justify-center animate-pulse">
+              <Dna className="w-10 h-10 text-primary-600" />
             </div>
-            <div className="absolute inset-0 rounded-full border-4 border-primary-800 animate-spin border-t-primary-400"></div>
+            <div className="absolute inset-0 rounded-full border-4 border-primary-200 animate-spin border-t-primary-600"></div>
           </div>
           <p className="mt-6 text-gray-600">Loading your results...</p>
         </div>
@@ -56,8 +56,8 @@ export default function ResultsPage() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center px-4">
         <div className="text-center">
-          <div className="w-20 h-20 rounded-full bg-red-900/30 flex items-center justify-center mx-auto mb-6">
-            <AlertTriangle className="w-10 h-10 text-red-400" />
+          <div className="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-6">
+            <AlertTriangle className="w-10 h-10 text-red-600" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
             Results Not Found
@@ -91,11 +91,11 @@ export default function ResultsPage() {
   // Get category icon and color
   const getCategoryStyle = (category) => {
     const styles = {
-      'Fix Skin': { icon: Target, bg: 'bg-primary-900/30', text: 'text-primary-400', border: 'border-primary-700/50', gradient: 'from-primary-500 to-primary-600' },
-      'Reduce Aging': { icon: TrendingUp, bg: 'bg-secondary-900/30', text: 'text-secondary-400', border: 'border-secondary-700/50', gradient: 'from-secondary-500 to-secondary-600' },
-      'Add Bonemass': { icon: Activity, bg: 'bg-orange-900/30', text: 'text-orange-400', border: 'border-orange-700/50', gradient: 'from-orange-500 to-orange-600' },
-      'Even Skin Tone': { icon: Sun, bg: 'bg-amber-900/30', text: 'text-amber-400', border: 'border-amber-700/50', gradient: 'from-amber-500 to-amber-600' },
-      'Improve Hydration': { icon: Droplets, bg: 'bg-cyan-900/30', text: 'text-cyan-400', border: 'border-cyan-700/50', gradient: 'from-cyan-500 to-cyan-600' },
+      'Fix Skin': { icon: Target, bg: 'bg-primary-50', text: 'text-primary-600', border: 'border-primary-200', gradient: 'from-primary-500 to-primary-600' },
+      'Reduce Aging': { icon: TrendingUp, bg: 'bg-secondary-50', text: 'text-secondary-600', border: 'border-secondary-200', gradient: 'from-secondary-500 to-secondary-600' },
+      'Add Bonemass': { icon: Activity, bg: 'bg-orange-50', text: 'text-orange-600', border: 'border-orange-200', gradient: 'from-orange-500 to-orange-600' },
+      'Even Skin Tone': { icon: Sun, bg: 'bg-amber-50', text: 'text-amber-600', border: 'border-amber-200', gradient: 'from-amber-500 to-amber-600' },
+      'Improve Hydration': { icon: Droplets, bg: 'bg-cyan-50', text: 'text-cyan-600', border: 'border-cyan-200', gradient: 'from-cyan-500 to-cyan-600' },
     }
     return styles[category] || { icon: Pill, bg: 'bg-gray-100', text: 'text-gray-600', border: 'border-gray-200', gradient: 'from-gray-300 to-gray-400' }
   }
@@ -106,7 +106,7 @@ export default function ResultsPage() {
         {/* Back Button */}
         <button
           onClick={() => navigate('/analyze')}
-          className="flex items-center gap-2 text-gray-500 hover:text-primary-400 transition-colors group mb-6"
+          className="flex items-center gap-2 text-gray-500 hover:text-primary-600 transition-colors group mb-6"
         >
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           <span className="font-medium">New Analysis</span>
@@ -114,7 +114,7 @@ export default function ResultsPage() {
 
         {/* Header with Centered Photo */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 text-sm text-accent-400 bg-accent-900/30 px-4 py-2 rounded-full border border-accent-700/50 mb-6">
+          <div className="inline-flex items-center gap-2 text-sm text-green-600 bg-green-50 px-4 py-2 rounded-full border border-green-200 mb-6">
             <CheckCircle2 className="w-4 h-4" />
             Analysis Complete
           </div>
@@ -158,20 +158,20 @@ export default function ResultsPage() {
                       >
                         <div className="flex items-start gap-3">
                           <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                            issue.severity === 'high' ? 'bg-red-900/50' :
-                            issue.severity === 'medium' ? 'bg-amber-900/50' : 'bg-primary-900/50'
+                            issue.severity === 'high' ? 'bg-red-50' :
+                            issue.severity === 'medium' ? 'bg-amber-50' : 'bg-primary-50'
                           }`}>
                             <AlertTriangle className={`w-4 h-4 ${
-                              issue.severity === 'high' ? 'text-red-400' :
-                              issue.severity === 'medium' ? 'text-amber-400' : 'text-primary-400'
+                              issue.severity === 'high' ? 'text-red-600' :
+                              issue.severity === 'medium' ? 'text-amber-600' : 'text-primary-600'
                             }`} />
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
                               <h3 className="font-semibold text-gray-900">{issue.title}</h3>
                               <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                                issue.severity === 'high' ? 'bg-red-900/50 text-red-400' :
-                                issue.severity === 'medium' ? 'bg-amber-900/50 text-amber-400' : 'bg-primary-900/50 text-primary-400'
+                                issue.severity === 'high' ? 'bg-red-50 text-red-600' :
+                                issue.severity === 'medium' ? 'bg-amber-50 text-amber-600' : 'bg-primary-50 text-primary-600'
                               }`}>
                                 {issue.severity}
                               </span>
@@ -183,10 +183,10 @@ export default function ResultsPage() {
                     ))}
                   </div>
                 ) : (
-                  <div className="bg-accent-900/30 rounded-xl p-4 border border-accent-700/50">
+                  <div className="bg-green-50 rounded-xl p-4 border border-green-200">
                     <div className="flex items-center gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-accent-400" />
-                      <p className="text-accent-300 font-medium">No major issues detected! Your skin looks great.</p>
+                      <CheckCircle2 className="w-5 h-5 text-green-600" />
+                      <p className="text-green-700 font-medium">No major issues detected! Your skin looks great.</p>
                     </div>
                   </div>
                 )}
@@ -194,8 +194,8 @@ export default function ResultsPage() {
             </div>
 
             {/* But There's Hope */}
-            <div className="bg-gradient-to-br from-accent-900/30 via-accent-900/20 to-primary-900/20 backdrop-blur-sm rounded-2xl border border-accent-700/30 overflow-hidden">
-              <div className="px-6 py-4 border-b border-accent-700/30 bg-accent-900/30">
+            <div className="bg-gradient-to-br from-green-50 via-green-50 to-primary-50 backdrop-blur-sm rounded-2xl border border-green-200 overflow-hidden">
+              <div className="px-6 py-4 border-b border-green-200 bg-green-50">
                 <h2 className="text-xl font-bold text-gray-900 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-primary-600 flex items-center justify-center">
                     <Sparkles className="w-5 h-5 text-white" />
@@ -210,8 +210,8 @@ export default function ResultsPage() {
                   <div className="space-y-4">
                     {achievements.map((achievement, index) => (
                       <div key={index} className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-accent-900/50 flex items-center justify-center flex-shrink-0 border border-accent-700/50">
-                          <CheckCircle2 className="w-4 h-4 text-accent-400" />
+                        <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0 border border-green-200">
+                          <CheckCircle2 className="w-4 h-4 text-green-600" />
                         </div>
                         <div>
                           <h4 className="font-semibold text-gray-900 text-sm">{achievement.title}</h4>
@@ -262,12 +262,12 @@ export default function ResultsPage() {
                             <div key={index} className="px-4 py-3 hover:bg-gray-100 transition-colors group">
                               <div className="flex items-center justify-between">
                                 <div>
-                                  <h4 className="font-medium text-gray-900 text-sm group-hover:text-primary-400 transition-colors">{rec.name}</h4>
+                                  <h4 className="font-medium text-gray-900 text-sm group-hover:text-primary-600 transition-colors">{rec.name}</h4>
                                   {rec.targetConditions && rec.targetConditions.length > 0 && (
                                     <p className="text-gray-500 text-xs mt-0.5">{rec.targetConditions.join(', ')}</p>
                                   )}
                                 </div>
-                                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
+                                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition-all" />
                               </div>
                             </div>
                           ))}
@@ -277,11 +277,11 @@ export default function ResultsPage() {
                   })}
 
                   {/* Disclaimer */}
-                  <div className="flex items-start gap-3 p-4 bg-amber-900/20 rounded-xl border border-amber-700/30">
-                    <AlertTriangle className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                  <div className="flex items-start gap-3 p-4 bg-amber-50 rounded-xl border border-amber-200">
+                    <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-amber-300 text-xs font-medium">Disclaimer</p>
-                      <p className="text-amber-400/70 text-xs mt-0.5">These are theoretical suggestions only, not medical advice. Consult a healthcare professional before starting any new treatment.</p>
+                      <p className="text-amber-700 text-xs font-medium">Disclaimer</p>
+                      <p className="text-amber-500 text-xs mt-0.5">These are theoretical suggestions only, not medical advice. Consult a healthcare professional before starting any new treatment.</p>
                     </div>
                   </div>
                 </div>
