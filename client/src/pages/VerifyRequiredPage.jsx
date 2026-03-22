@@ -58,28 +58,28 @@ export default function VerifyRequiredPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900 flex items-center justify-center px-4">
+    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white via-gray-50 to-white flex items-center justify-center px-4">
       <div className="max-w-md w-full">
-        <div className="bg-dark-800/50 backdrop-blur-sm rounded-3xl shadow-2xl border border-dark-700 p-8 text-center">
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-200 p-8 text-center">
           {/* Icon */}
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 mb-6 shadow-glow-lg">
             <Mail className="w-10 h-10 text-white" />
           </div>
 
           {/* Title */}
-          <h1 className="text-2xl font-bold text-white mb-3">
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">
             Verify Your Email
           </h1>
 
           {/* Description */}
-          <p className="text-dark-300 mb-2">
+          <p className="text-gray-600 mb-2">
             We've sent a verification link to:
           </p>
           <p className="text-primary-400 font-medium mb-6">
             {user?.email || 'your email address'}
           </p>
 
-          <p className="text-dark-400 text-sm mb-8">
+          <p className="text-gray-500 text-sm mb-8">
             Please check your inbox and click the verification link to access all features.
             Don't forget to check your spam folder.
           </p>
@@ -123,7 +123,7 @@ export default function VerifyRequiredPage() {
             <button
               onClick={handleResend}
               disabled={isResending}
-              className="w-full py-3 bg-dark-700/50 hover:bg-dark-700 text-white font-medium rounded-xl border border-dark-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-3 bg-gray-100 hover:bg-gray-100 text-gray-900 font-medium rounded-xl border border-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isResending ? (
                 <>
@@ -140,7 +140,7 @@ export default function VerifyRequiredPage() {
 
             <button
               onClick={handleLogout}
-              className="w-full py-3 text-dark-400 hover:text-white font-medium transition-colors flex items-center justify-center gap-2"
+              className="w-full py-3 text-gray-500 hover:text-gray-900 font-medium transition-colors flex items-center justify-center gap-2"
             >
               <LogOut className="w-5 h-5" />
               Sign Out

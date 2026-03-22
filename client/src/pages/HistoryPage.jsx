@@ -80,27 +80,27 @@ export default function HistoryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900">
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-white via-gray-50 to-white">
         <div className="text-center">
           <div className="relative w-16 h-16 mx-auto mb-4">
-            <div className="w-16 h-16 rounded-full border-4 border-dark-700"></div>
+            <div className="w-16 h-16 rounded-full border-4 border-gray-200"></div>
             <div className="absolute inset-0 w-16 h-16 rounded-full border-4 border-primary-500 border-t-transparent animate-spin"></div>
           </div>
-          <p className="text-dark-400">Loading history...</p>
+          <p className="text-gray-500">Loading history...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900">
+    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white via-gray-50 to-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
         {/* Header */}
         <div className="flex items-start justify-between mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-white">Analysis History</h1>
-            <p className="text-dark-400 mt-1 text-sm">View and manage your past analyses</p>
+            <h1 className="text-3xl font-bold text-gray-900">Analysis History</h1>
+            <p className="text-gray-500 mt-1 text-sm">View and manage your past analyses</p>
           </div>
           <Link
             to="/analyze"
@@ -119,12 +119,12 @@ export default function HistoryPage() {
         )}
 
         {results.length === 0 ? (
-          <div className="bg-dark-800/50 backdrop-blur-sm rounded-2xl border border-dark-700 p-16 text-center">
-            <div className="w-16 h-16 mx-auto rounded-2xl bg-dark-700/50 flex items-center justify-center mb-4">
-              <Clock className="w-8 h-8 text-dark-500" />
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200 p-16 text-center">
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-gray-100 flex items-center justify-center mb-4">
+              <Clock className="w-8 h-8 text-gray-400" />
             </div>
-            <h3 className="text-white font-semibold mb-2">No analyses yet</h3>
-            <p className="text-dark-400 text-sm mb-6">Start your first skin analysis to see results here</p>
+            <h3 className="text-gray-900 font-semibold mb-2">No analyses yet</h3>
+            <p className="text-gray-500 text-sm mb-6">Start your first skin analysis to see results here</p>
             <Link
               to="/analyze"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-medium rounded-xl shadow-glow hover:shadow-glow-lg transition-all"
@@ -139,7 +139,7 @@ export default function HistoryPage() {
               {results.map((result) => (
                 <div
                   key={result.id}
-                  className="group bg-dark-800/50 backdrop-blur-sm rounded-2xl border border-dark-700 hover:border-primary-600/40 hover:bg-dark-800/70 transition-all duration-200 overflow-hidden"
+                  className="group bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200 hover:border-primary-400 hover:bg-gray-50/70 transition-all duration-200 overflow-hidden"
                 >
                   <div className="flex items-stretch gap-0">
                     {/* Thumbnail */}
@@ -151,8 +151,8 @@ export default function HistoryPage() {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full min-h-[96px] bg-dark-700 flex items-center justify-center">
-                          <Dna className="w-6 h-6 text-dark-500" />
+                        <div className="w-full h-full min-h-[96px] bg-gray-100 flex items-center justify-center">
+                          <Dna className="w-6 h-6 text-gray-400" />
                         </div>
                       )}
                     </div>
@@ -160,7 +160,7 @@ export default function HistoryPage() {
                     {/* Info */}
                     <div className="flex-1 min-w-0 p-3 flex flex-col justify-between gap-2">
                       <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-1.5 text-xs text-dark-400">
+                        <div className="flex items-center gap-1.5 text-xs text-gray-500">
                           <Calendar className="w-3 h-3 flex-shrink-0" />
                           <span className="truncate">{formatDate(result.createdAt)}</span>
                         </div>
@@ -176,13 +176,13 @@ export default function HistoryPage() {
                           {result.mainIssues.slice(0, 2).map((issue, index) => (
                             <span
                               key={issue._id || index}
-                              className="px-2 py-0.5 bg-dark-700/60 text-dark-300 rounded-md text-xs border border-dark-600 truncate max-w-[120px]"
+                              className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-md text-xs border border-gray-200 truncate max-w-[120px]"
                             >
                               {issue.title}
                             </span>
                           ))}
                           {result.mainIssues.length > 2 && (
-                            <span className="px-2 py-0.5 bg-dark-700/40 text-dark-500 rounded-md text-xs border border-dark-600">
+                            <span className="px-2 py-0.5 bg-gray-100 text-gray-400 rounded-md text-xs border border-gray-200">
                               +{result.mainIssues.length - 2}
                             </span>
                           )}
@@ -201,7 +201,7 @@ export default function HistoryPage() {
                         <button
                           onClick={() => handleDeleteClick(result.id)}
                           disabled={deleting === result.id}
-                          className="p-1.5 text-dark-500 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all disabled:opacity-50"
+                          className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all disabled:opacity-50"
                           title="Delete"
                         >
                           {deleting === result.id ? (
@@ -223,17 +223,17 @@ export default function HistoryPage() {
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="p-2 bg-dark-700/50 text-dark-300 rounded-xl border border-dark-600 hover:border-primary-600/50 hover:text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="p-2 bg-gray-100 text-gray-600 rounded-xl border border-gray-200 hover:border-primary-400 hover:text-gray-900 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
-                <span className="text-dark-400 text-sm px-2">
-                  Page <span className="text-white font-medium">{page}</span> of {totalPages}
+                <span className="text-gray-500 text-sm px-2">
+                  Page <span className="text-gray-900 font-medium">{page}</span> of {totalPages}
                 </span>
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
-                  className="p-2 bg-dark-700/50 text-dark-300 rounded-xl border border-dark-600 hover:border-primary-600/50 hover:text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="p-2 bg-gray-100 text-gray-600 rounded-xl border border-gray-200 hover:border-primary-400 hover:text-gray-900 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>
@@ -250,10 +250,10 @@ export default function HistoryPage() {
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={handleDeleteCancel}
           />
-          <div className="relative bg-dark-800 rounded-2xl border border-dark-700 shadow-2xl max-w-sm w-full p-6">
+          <div className="relative bg-gray-50 rounded-2xl border border-gray-200 shadow-2xl max-w-sm w-full p-6">
             <button
               onClick={handleDeleteCancel}
-              className="absolute top-4 right-4 text-dark-400 hover:text-white transition-colors"
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -261,14 +261,14 @@ export default function HistoryPage() {
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-red-900/30 border border-red-700/40 mb-4">
                 <Trash2 className="w-7 h-7 text-red-400" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Delete Analysis?</h3>
-              <p className="text-dark-400 text-sm mb-6">
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Delete Analysis?</h3>
+              <p className="text-gray-500 text-sm mb-6">
                 This action cannot be undone. The analysis result will be permanently removed.
               </p>
               <div className="flex gap-3">
                 <button
                   onClick={handleDeleteCancel}
-                  className="flex-1 py-2.5 bg-dark-700/50 text-white font-medium rounded-xl border border-dark-600 hover:bg-dark-700 transition-colors"
+                  className="flex-1 py-2.5 bg-gray-100 text-gray-900 font-medium rounded-xl border border-gray-200 hover:bg-gray-100 transition-colors"
                 >
                   Cancel
                 </button>

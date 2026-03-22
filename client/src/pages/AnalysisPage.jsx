@@ -38,7 +38,7 @@ export default function AnalysisPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900">
+    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white via-gray-50 to-white">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8">
 
         {/* Header */}
@@ -46,20 +46,20 @@ export default function AnalysisPage() {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 mb-4 shadow-glow-lg">
             <Dna className="w-7 h-7 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-1">Skin Analysis</h1>
-          <p className="text-sm text-dark-400 max-w-xs mx-auto">
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">Skin Analysis</h1>
+          <p className="text-sm text-gray-500 max-w-xs mx-auto">
             Upload a clear face photo to get your personalized peptide recommendations
           </p>
         </div>
 
         {/* Mode Toggle */}
-        <div className="flex p-1 bg-dark-700/50 rounded-2xl border border-dark-600 mb-5">
+        <div className="flex p-1 bg-gray-100 rounded-2xl border border-gray-200 mb-5">
           <button
             onClick={() => setMode('upload')}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl font-medium transition-all duration-200 text-sm ${
               mode === 'upload'
                 ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-600/25'
-                : 'text-dark-400 hover:text-white'
+                : 'text-gray-500 hover:text-gray-900'
             }`}
           >
             <Upload className="w-4 h-4" />
@@ -70,7 +70,7 @@ export default function AnalysisPage() {
             className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl font-medium transition-all duration-200 text-sm ${
               mode === 'camera'
                 ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-600/25'
-                : 'text-dark-400 hover:text-white'
+                : 'text-gray-500 hover:text-gray-900'
             }`}
           >
             <Camera className="w-4 h-4" />
@@ -81,7 +81,7 @@ export default function AnalysisPage() {
             className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl font-medium transition-all duration-200 text-sm ${
               mode === 'stack'
                 ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-600/25'
-                : 'text-dark-400 hover:text-white'
+                : 'text-gray-500 hover:text-gray-900'
             }`}
           >
             <MessageCircle className="w-4 h-4" />
@@ -97,7 +97,7 @@ export default function AnalysisPage() {
         )}
 
         {/* Main Content Card */}
-        <div className="bg-dark-800/50 backdrop-blur-sm rounded-2xl border border-dark-700 p-4 mb-5">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200 p-4 mb-5">
           {mode === 'upload' ? (
             <ImageUploader onImageSelect={handleImageCapture} />
           ) : mode === 'camera' ? (
@@ -109,23 +109,23 @@ export default function AnalysisPage() {
 
         {/* Feature pills */}
         <div className="flex justify-center gap-3 flex-wrap mb-5">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-dark-800/50 rounded-full border border-dark-700 text-xs text-dark-300">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/80 rounded-full border border-gray-200 text-xs text-gray-600">
             <Zap className="w-3.5 h-3.5 text-primary-400" />
             Fast Results
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-dark-800/50 rounded-full border border-dark-700 text-xs text-dark-300">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/80 rounded-full border border-gray-200 text-xs text-gray-600">
             <Shield className="w-3.5 h-3.5 text-accent-400" />
             Private & Secure
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-dark-800/50 rounded-full border border-dark-700 text-xs text-dark-300">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/80 rounded-full border border-gray-200 text-xs text-gray-600">
             <Sparkles className="w-3.5 h-3.5 text-secondary-400" />
             AI-Powered
           </div>
         </div>
 
         {/* Tips */}
-        <div className="bg-dark-800/30 rounded-2xl p-4 border border-dark-700/50">
-          <h3 className="font-semibold text-white text-sm mb-3 flex items-center gap-2">
+        <div className="bg-gray-50/50 rounded-2xl p-4 border border-gray-200">
+          <h3 className="font-semibold text-gray-900 text-sm mb-3 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-primary-400" />
             Tips for Best Results
           </h3>
@@ -140,7 +140,7 @@ export default function AnalysisPage() {
                 <span className="w-5 h-5 rounded-full bg-primary-600/20 text-primary-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
                   {i + 1}
                 </span>
-                <p className="text-xs text-dark-400 leading-relaxed">{tip}</p>
+                <p className="text-xs text-gray-500 leading-relaxed">{tip}</p>
               </div>
             ))}
           </div>

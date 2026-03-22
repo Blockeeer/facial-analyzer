@@ -60,13 +60,13 @@ export default function ResetPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900 p-4">
-        <div className="w-full max-w-md bg-dark-800/50 backdrop-blur-sm rounded-3xl border border-dark-700 p-8 text-center">
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-white via-gray-50 to-white p-4">
+        <div className="w-full max-w-md bg-white/80 backdrop-blur-sm rounded-3xl border border-gray-200 p-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-500 to-accent-700 mb-6">
             <CheckCircle className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-3">Password Reset Successful</h1>
-          <p className="text-dark-400 mb-6">
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">Password Reset Successful</h1>
+          <p className="text-gray-500 mb-6">
             Your password has been reset successfully. You will be redirected to the home page shortly.
           </p>
           <Link
@@ -81,14 +81,14 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900 p-4">
-      <div className="w-full max-w-md bg-dark-800/50 backdrop-blur-sm rounded-3xl border border-dark-700 p-8">
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-white via-gray-50 to-white p-4">
+      <div className="w-full max-w-md bg-white/80 backdrop-blur-sm rounded-3xl border border-gray-200 p-8">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 mb-4 shadow-glow">
             <KeyRound className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Set New Password</h1>
-          <p className="text-dark-400 mt-2">Enter your new password below</p>
+          <h1 className="text-2xl font-bold text-gray-900">Set New Password</h1>
+          <p className="text-gray-500 mt-2">Enter your new password below</p>
         </div>
 
         {error && (
@@ -101,17 +101,17 @@ export default function ResetPasswordPage() {
         {token ? (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-dark-300 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-600 mb-2">
                 New Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-500" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-dark-700/50 border border-dark-600 rounded-xl text-white placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
+                  className="w-full pl-12 pr-4 py-3 bg-gray-100 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
                   placeholder="••••••••"
                   required
                   minLength={6}
@@ -120,17 +120,17 @@ export default function ResetPasswordPage() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-dark-300 mb-2">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-600 mb-2">
                 Confirm New Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-500" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="confirmPassword"
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-dark-700/50 border border-dark-600 rounded-xl text-white placeholder-dark-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
+                  className="w-full pl-12 pr-4 py-3 bg-gray-100 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
                   placeholder="••••••••"
                   required
                   minLength={6}
@@ -144,11 +144,11 @@ export default function ResetPasswordPage() {
                 <div
                   key={index}
                   className={`flex items-center gap-2 text-sm ${
-                    req.met ? 'text-accent-400' : 'text-dark-500'
+                    req.met ? 'text-accent-400' : 'text-gray-400'
                   }`}
                 >
                   <CheckCircle
-                    className={`w-4 h-4 ${req.met ? 'text-accent-400' : 'text-dark-600'}`}
+                    className={`w-4 h-4 ${req.met ? 'text-accent-400' : 'text-gray-300'}`}
                   />
                   {req.text}
                 </div>

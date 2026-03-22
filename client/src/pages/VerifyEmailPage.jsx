@@ -46,13 +46,13 @@ export default function VerifyEmailPage() {
 
   if (status === 'verifying') {
     return (
-      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900 p-4">
-        <div className="w-full max-w-md bg-dark-800/50 backdrop-blur-sm rounded-3xl border border-dark-700 p-8 text-center">
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-white via-gray-50 to-white p-4">
+        <div className="w-full max-w-md bg-white/80 backdrop-blur-sm rounded-3xl border border-gray-200 p-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 mb-6">
             <Loader2 className="w-8 h-8 text-white animate-spin" />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-3">Verifying Email</h1>
-          <p className="text-dark-400">Please wait while we verify your email address...</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">Verifying Email</h1>
+          <p className="text-gray-500">Please wait while we verify your email address...</p>
         </div>
       </div>
     )
@@ -60,13 +60,13 @@ export default function VerifyEmailPage() {
 
   if (status === 'success') {
     return (
-      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900 p-4">
-        <div className="w-full max-w-md bg-dark-800/50 backdrop-blur-sm rounded-3xl border border-dark-700 p-8 text-center">
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-white via-gray-50 to-white p-4">
+        <div className="w-full max-w-md bg-white/80 backdrop-blur-sm rounded-3xl border border-gray-200 p-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-500 to-accent-700 mb-6">
             <CheckCircle className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-3">Email Verified!</h1>
-          <p className="text-dark-400 mb-6">
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">Email Verified!</h1>
+          <p className="text-gray-500 mb-6">
             Your email has been verified successfully. You can now access all features of Facial Analyzer.
           </p>
           <Link
@@ -81,13 +81,13 @@ export default function VerifyEmailPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900 p-4">
-      <div className="w-full max-w-md bg-dark-800/50 backdrop-blur-sm rounded-3xl border border-dark-700 p-8 text-center">
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-b from-white via-gray-50 to-white p-4">
+      <div className="w-full max-w-md bg-white/80 backdrop-blur-sm rounded-3xl border border-gray-200 p-8 text-center">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-red-700 mb-6">
           <AlertCircle className="w-8 h-8 text-white" />
         </div>
-        <h1 className="text-2xl font-bold text-white mb-3">Verification Failed</h1>
-        <p className="text-dark-400 mb-6">{error}</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-3">Verification Failed</h1>
+        <p className="text-gray-500 mb-6">{error}</p>
         <div className="space-y-3">
           <Link
             to="/"

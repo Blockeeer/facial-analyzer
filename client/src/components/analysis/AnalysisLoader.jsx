@@ -33,7 +33,7 @@ export default function AnalysisLoader() {
   const CurrentIcon = steps[currentStep].icon
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-b from-white via-gray-50 to-white">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-600/10 rounded-full blur-3xl"></div>
@@ -46,7 +46,7 @@ export default function AnalysisLoader() {
         <div className="absolute inset-0 w-36 h-36 rounded-full bg-primary-500/20 blur-xl animate-pulse"></div>
 
         {/* Outer ring */}
-        <div className="w-36 h-36 rounded-full border-4 border-dark-700"></div>
+        <div className="w-36 h-36 rounded-full border-4 border-gray-200"></div>
 
         {/* Progress ring */}
         <svg className="absolute inset-0 w-36 h-36 -rotate-90">
@@ -80,10 +80,10 @@ export default function AnalysisLoader() {
 
       {/* Text content */}
       <div className="text-center mb-8 z-10">
-        <h2 className="text-2xl font-bold text-white mb-2">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
           {steps[currentStep].text}
         </h2>
-        <p className="text-dark-400">
+        <p className="text-gray-500">
           {steps[currentStep].subtext}
         </p>
       </div>
@@ -100,7 +100,7 @@ export default function AnalysisLoader() {
                   ? 'bg-gradient-to-br from-primary-500 to-primary-700 shadow-glow scale-110'
                   : index < currentStep
                   ? 'bg-accent-900/50 border border-accent-700/50'
-                  : 'bg-dark-700/50 border border-dark-600'
+                  : 'bg-gray-100 border border-gray-200'
               }`}
             >
               <StepIcon
@@ -109,7 +109,7 @@ export default function AnalysisLoader() {
                     ? 'text-white'
                     : index < currentStep
                     ? 'text-accent-400'
-                    : 'text-dark-500'
+                    : 'text-gray-400'
                 }`}
               />
             </div>
@@ -118,7 +118,7 @@ export default function AnalysisLoader() {
       </div>
 
       {/* Progress bar */}
-      <div className="w-72 h-2 bg-dark-700 rounded-full overflow-hidden z-10">
+      <div className="w-72 h-2 bg-gray-200 rounded-full overflow-hidden z-10">
         <div
           className="h-full bg-gradient-to-r from-primary-500 via-primary-400 to-secondary-500 rounded-full transition-all duration-300"
           style={{ width: `${progress}%` }}
@@ -131,7 +131,7 @@ export default function AnalysisLoader() {
       </p>
 
       {/* Info text */}
-      <p className="mt-6 text-dark-500 text-center max-w-md text-sm z-10">
+      <p className="mt-6 text-gray-400 text-center max-w-md text-sm z-10">
         Our AI is carefully analyzing your facial features to provide personalized
         skincare recommendations. This usually takes 10-15 seconds.
       </p>

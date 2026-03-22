@@ -43,13 +43,13 @@ export default function ImageUploader({ onImageSelect }) {
     return (
       <div className="flex flex-col gap-4">
         {/* Preview image */}
-        <div className="relative rounded-2xl overflow-hidden bg-dark-700 shadow-2xl ring-2 ring-dark-600">
+        <div className="relative rounded-2xl overflow-hidden bg-gray-100 shadow-2xl ring-2 ring-gray-200">
           <img
             src={preview}
             alt="Preview"
             className="w-full max-h-72 object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark-900/40 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/50 to-transparent pointer-events-none" />
           <button
             onClick={handleClear}
             className="absolute top-3 right-3 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg transition-colors"
@@ -62,7 +62,7 @@ export default function ImageUploader({ onImageSelect }) {
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={handleClear}
-            className="flex items-center justify-center gap-2 py-3.5 rounded-xl font-medium text-dark-200 bg-dark-700 hover:bg-dark-600 border border-dark-600 hover:border-dark-500 transition-all text-sm"
+            className="flex items-center justify-center gap-2 py-3.5 rounded-xl font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 border border-gray-200 hover:border-gray-300 transition-all text-sm"
           >
             <FolderOpen className="w-4 h-4" />
             Choose Different
@@ -85,7 +85,7 @@ export default function ImageUploader({ onImageSelect }) {
       className={`relative border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all duration-300 ${
         isDragActive
           ? 'border-primary-500 bg-primary-900/20 scale-[1.02]'
-          : 'border-dark-600 hover:border-primary-500/50 hover:bg-dark-700/30'
+          : 'border-gray-200 hover:border-primary-500/50 hover:bg-gray-50'
       }`}
     >
       <input {...getInputProps()} />
@@ -106,18 +106,18 @@ export default function ImageUploader({ onImageSelect }) {
           </>
         ) : (
           <>
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-dark-700 to-dark-800 flex items-center justify-center border border-dark-600">
-              <Upload className="w-8 h-8 text-dark-400" />
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center border border-gray-200">
+              <Upload className="w-8 h-8 text-gray-500" />
             </div>
             <div>
-              <p className="text-base font-semibold text-white mb-1">Drag & drop your photo here</p>
-              <p className="text-sm text-dark-400">
+              <p className="text-base font-semibold text-gray-900 mb-1">Drag & drop your photo here</p>
+              <p className="text-sm text-gray-500">
                 or <span className="text-primary-400 font-medium">tap to browse</span> from your device
               </p>
             </div>
             <div className="flex items-center gap-2 flex-wrap justify-center mt-1">
               {['JPG', 'PNG', 'WebP', 'Max 10MB'].map(label => (
-                <span key={label} className="text-xs text-dark-400 px-2.5 py-1 bg-dark-700/50 rounded-full border border-dark-600">
+                <span key={label} className="text-xs text-gray-500 px-2.5 py-1 bg-gray-100 rounded-full border border-gray-200">
                   {label}
                 </span>
               ))}

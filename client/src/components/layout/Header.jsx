@@ -15,27 +15,27 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-dark-900/95 backdrop-blur-md border-b border-dark-700 sticky top-0 z-50">
+    <header className="bg-white/95 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 group">
             <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-glow group-hover:shadow-glow-lg transition-shadow">
               <Dna className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-semibold text-white">PeptiScan</span>
+            <span className="text-xl font-semibold text-gray-900">PeptiScan</span>
           </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-dark-300 hover:text-primary-400 transition-colors font-medium">
+            <Link to="/" className="text-gray-600 hover:text-primary-400 transition-colors font-medium">
               Home
             </Link>
             {isAuthenticated && (
               <>
-                <Link to="/analyze" className="text-dark-300 hover:text-primary-400 transition-colors font-medium">
+                <Link to="/analyze" className="text-gray-600 hover:text-primary-400 transition-colors font-medium">
                   Analyze
                 </Link>
-                <Link to="/history" className="text-dark-300 hover:text-primary-400 transition-colors font-medium">
+                <Link to="/history" className="text-gray-600 hover:text-primary-400 transition-colors font-medium">
                   History
                 </Link>
               </>
@@ -47,25 +47,25 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setShowDropdown(!showDropdown)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-dark-700/50 transition-colors border border-transparent hover:border-dark-600"
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200"
                 >
                   <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center">
                     <User className="w-4 h-4 text-white" />
                   </div>
-                  <span className="hidden sm:block text-sm font-medium text-dark-200">{user?.name}</span>
+                  <span className="hidden sm:block text-sm font-medium text-gray-700">{user?.name}</span>
                 </button>
 
                 {showDropdown && (
                   <>
                     <div className="fixed inset-0 z-10" onClick={() => setShowDropdown(false)} />
-                    <div className="absolute right-0 mt-2 w-56 bg-dark-800 rounded-xl shadow-2xl border border-dark-700 py-2 z-20 backdrop-blur-sm">
-                      <div className="px-4 py-3 border-b border-dark-700">
-                        <p className="text-sm font-medium text-white">{user?.name}</p>
-                        <p className="text-xs text-dark-400 mt-0.5">{user?.email}</p>
+                    <div className="absolute right-0 mt-2 w-56 bg-gray-50 rounded-xl shadow-2xl border border-gray-200 py-2 z-20 backdrop-blur-sm">
+                      <div className="px-4 py-3 border-b border-gray-200">
+                        <p className="text-sm font-medium text-gray-900">{user?.name}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">{user?.email}</p>
                       </div>
                       <Link
                         to="/history"
-                        className="flex items-center gap-3 px-4 py-3 text-sm text-dark-300 hover:bg-dark-700/50 hover:text-primary-400 transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-gray-100 hover:text-primary-400 transition-colors"
                         onClick={() => setShowDropdown(false)}
                       >
                         <History className="w-4 h-4" />
@@ -86,7 +86,7 @@ export default function Header() {
               <div className="flex items-center gap-3">
                 <button
                   onClick={openLoginModal}
-                  className="text-dark-300 hover:text-white font-medium transition-colors text-sm"
+                  className="text-gray-600 hover:text-gray-900 font-medium transition-colors text-sm"
                 >
                   Sign In
                 </button>

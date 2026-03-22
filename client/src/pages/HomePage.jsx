@@ -8,7 +8,7 @@ export default function HomePage() {
   const { isAuthenticated } = useAuth()
 
   return (
-    <div className="bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900">
+    <div className="bg-gradient-to-b from-white via-gray-50 to-white">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         {/* Background decorations */}
@@ -24,7 +24,7 @@ export default function HomePage() {
               <span className="text-primary-300 text-sm font-medium">AI-Powered Skin Analysis</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Advanced Facial Analysis
               <br />
               <span className="bg-gradient-to-r from-primary-400 to-secondary-400 text-transparent bg-clip-text">
@@ -32,7 +32,7 @@ export default function HomePage() {
               </span>
             </h1>
 
-            <p className="text-xl text-dark-300 max-w-2xl mx-auto mb-10">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-10">
               Upload your photo and receive AI-driven skincare recommendations
               tailored to your unique facial features and skin conditions.
             </p>
@@ -49,7 +49,7 @@ export default function HomePage() {
               {!isAuthenticated && (
                 <button
                   onClick={openRegisterModal}
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-dark-700/50 text-dark-200 font-semibold rounded-2xl border border-dark-600 hover:border-primary-600/50 hover:text-white transition-all"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-gray-100 text-gray-700 font-semibold rounded-2xl border border-gray-200 hover:border-primary-400 hover:text-gray-900 transition-all"
                 >
                   Create Account
                 </button>
@@ -62,10 +62,10 @@ export default function HomePage() {
       {/* Features Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             How It Works
           </h2>
-          <p className="text-dark-400 max-w-2xl mx-auto">
+          <p className="text-gray-500 max-w-2xl mx-auto">
             Get personalized peptide recommendations in three simple steps
           </p>
         </div>
@@ -96,11 +96,11 @@ export default function HomePage() {
       </section>
 
       {/* Benefits Section */}
-      <section className="bg-dark-800/50 border-y border-dark-700">
+      <section className="bg-white/80 border-y border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                 Why Choose Our Analysis?
               </h2>
               <div className="space-y-4">
@@ -112,13 +112,13 @@ export default function HomePage() {
               </div>
             </div>
             <div className="relative">
-              <div className="w-full aspect-square max-w-md mx-auto rounded-3xl bg-gradient-to-br from-primary-900/50 to-secondary-900/50 border border-dark-600 flex items-center justify-center">
+              <div className="w-full aspect-square max-w-md mx-auto rounded-3xl bg-gradient-to-br from-primary-900/50 to-secondary-900/50 border border-gray-200 flex items-center justify-center">
                 <div className="text-center p-8">
                   <div className="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-glow-lg mb-6">
                     <Dna className="w-12 h-12 text-white" />
                   </div>
-                  <p className="text-white font-semibold text-lg">Advanced Peptide Science</p>
-                  <p className="text-dark-400 text-sm mt-2">Tailored to your skin's unique needs</p>
+                  <p className="text-gray-900 font-semibold text-lg">Advanced Peptide Science</p>
+                  <p className="text-gray-500 text-sm mt-2">Tailored to your skin's unique needs</p>
                 </div>
               </div>
             </div>
@@ -135,8 +135,8 @@ export default function HomePage() {
                 <Shield className="w-10 h-10 text-white" />
               </div>
               <div className="text-center md:text-left">
-                <h3 className="text-2xl font-bold text-white mb-2">Your Privacy Matters</h3>
-                <p className="text-dark-300 max-w-xl">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Your Privacy Matters</h3>
+                <p className="text-gray-600 max-w-xl">
                   Your photos are processed securely and never stored permanently.
                   We use industry-standard encryption to protect your data.
                 </p>
@@ -149,10 +149,10 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Ready to Transform Your Skincare?
           </h2>
-          <p className="text-dark-400 max-w-2xl mx-auto mb-8">
+          <p className="text-gray-500 max-w-2xl mx-auto mb-8">
             Join thousands of users who have discovered their personalized peptide regimen
           </p>
           <Link
@@ -170,15 +170,15 @@ export default function HomePage() {
 
 function FeatureCard({ icon, iconBg, step, title, description }) {
   return (
-    <div className="bg-dark-800/50 backdrop-blur-sm rounded-2xl p-8 border border-dark-700 hover:border-primary-600/50 transition-all group">
+    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 hover:border-primary-400 transition-all group">
       <div className="flex items-center gap-4 mb-6">
         <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${iconBg} flex items-center justify-center shadow-lg group-hover:shadow-glow transition-shadow`}>
           {icon}
         </div>
-        <span className="text-4xl font-bold text-dark-600">{step}</span>
+        <span className="text-4xl font-bold text-gray-300">{step}</span>
       </div>
-      <h3 className="text-xl font-semibold text-white mb-3">{title}</h3>
-      <p className="text-dark-400 leading-relaxed">{description}</p>
+      <h3 className="text-xl font-semibold text-gray-900 mb-3">{title}</h3>
+      <p className="text-gray-500 leading-relaxed">{description}</p>
     </div>
   )
 }
@@ -189,7 +189,7 @@ function BenefitItem({ text }) {
       <div className="w-6 h-6 rounded-full bg-accent-900/50 flex items-center justify-center flex-shrink-0 border border-accent-700/50">
         <CheckCircle2 className="w-4 h-4 text-accent-400" />
       </div>
-      <span className="text-dark-200">{text}</span>
+      <span className="text-gray-700">{text}</span>
     </div>
   )
 }

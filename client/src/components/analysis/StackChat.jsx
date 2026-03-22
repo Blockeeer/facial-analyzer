@@ -85,13 +85,13 @@ export default function StackChat() {
               className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
                 msg.role === 'assistant'
                   ? 'bg-gradient-to-br from-primary-500 to-primary-700'
-                  : 'bg-dark-600'
+                  : 'bg-gray-200'
               }`}
             >
               {msg.role === 'assistant' ? (
                 <Bot className="w-4 h-4 text-white" />
               ) : (
-                <User className="w-4 h-4 text-dark-300" />
+                <User className="w-4 h-4 text-gray-600" />
               )}
             </div>
 
@@ -99,12 +99,12 @@ export default function StackChat() {
             <div
               className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 msg.role === 'assistant'
-                  ? 'bg-dark-700/70 text-dark-200 rounded-tl-md'
-                  : 'bg-primary-600/20 text-white border border-primary-500/20 rounded-tr-md'
+                  ? 'bg-gray-100 text-gray-700 rounded-tl-md'
+                  : 'bg-primary-50 text-gray-900 border border-primary-200 rounded-tr-md'
               }`}
             >
               <div
-                className="prose prose-invert prose-sm max-w-none [&>p]:mb-2 [&>p:last-child]:mb-0 [&>ul]:mb-2 [&>ul]:ml-4 [&>ul>li]:text-dark-300 [&>h3]:text-white [&>h3]:text-base [&>h3]:mt-3 [&>h3]:mb-1 [&>strong]:text-white [&>h2]:text-white [&>h2]:text-lg [&>h2]:mt-4 [&>h2]:mb-2"
+                className="prose prose-sm max-w-none [&>p]:mb-2 [&>p:last-child]:mb-0 [&>ul]:mb-2 [&>ul]:ml-4 [&>ul>li]:text-gray-600 [&>h3]:text-gray-900 [&>h3]:text-base [&>h3]:mt-3 [&>h3]:mb-1 [&>strong]:text-gray-900 [&>h2]:text-gray-900 [&>h2]:text-lg [&>h2]:mt-4 [&>h2]:mb-2"
                 dangerouslySetInnerHTML={{ __html: formatMarkdown(msg.content) }}
               />
             </div>
@@ -117,8 +117,8 @@ export default function StackChat() {
             <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center flex-shrink-0">
               <Bot className="w-4 h-4 text-white" />
             </div>
-            <div className="bg-dark-700/70 rounded-2xl rounded-tl-md px-4 py-3">
-              <div className="flex items-center gap-2 text-dark-400 text-sm">
+            <div className="bg-gray-100 rounded-2xl rounded-tl-md px-4 py-3">
+              <div className="flex items-center gap-2 text-gray-500 text-sm">
                 <Loader2 className="w-4 h-4 animate-spin" />
                 Thinking...
               </div>
@@ -130,7 +130,7 @@ export default function StackChat() {
       </div>
 
       {/* Input Area */}
-      <div className="pt-3 border-t border-dark-700/50">
+      <div className="pt-3 border-t border-gray-200">
         {isComplete ? (
           <button
             onClick={handleReset}
@@ -149,7 +149,7 @@ export default function StackChat() {
               placeholder="Type your answer..."
               rows={1}
               disabled={isLoading}
-              className="flex-1 bg-dark-700/50 border border-dark-600 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-dark-500 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/25 resize-none disabled:opacity-50"
+              className="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/25 resize-none disabled:opacity-50"
             />
             <button
               onClick={handleSend}
