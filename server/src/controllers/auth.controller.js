@@ -52,6 +52,7 @@ export async function registerController(req, res, next) {
           isEmailVerified: user.isEmailVerified,
         },
         accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
         message: 'Please check your email to verify your account',
       },
     })
@@ -94,6 +95,7 @@ export async function loginController(req, res, next) {
           isEmailVerified: user.isEmailVerified,
         },
         accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
       },
     })
   } catch (error) {
@@ -123,7 +125,8 @@ export async function logoutController(req, res) {
 
 export async function refreshController(req, res, next) {
   try {
-    const refreshToken = req.cookies?.refreshToken
+    // Try cookie first, then request body (for cross-domain where cookies are blocked)
+    const refreshToken = req.cookies?.refreshToken || req.body?.refreshToken
     if (!refreshToken) {
       res.status(401).json({
         success: false,
@@ -140,6 +143,7 @@ export async function refreshController(req, res, next) {
       success: true,
       data: {
         accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
       },
     })
   } catch (error) {

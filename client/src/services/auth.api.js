@@ -10,10 +10,30 @@ const api = axios.create({
   withCredentials: true,
 })
 
+// Helper to manage refresh token in localStorage (fallback when cookies are blocked cross-domain)
+const REFRESH_TOKEN_KEY = 'peptiscan_rt'
+
+function saveRefreshToken(token) {
+  if (token) {
+    localStorage.setItem(REFRESH_TOKEN_KEY, token)
+  }
+}
+
+function getRefreshToken() {
+  return localStorage.getItem(REFRESH_TOKEN_KEY)
+}
+
+function clearRefreshToken() {
+  localStorage.removeItem(REFRESH_TOKEN_KEY)
+}
+
 export const authApi = {
   async register(credentials) {
     try {
       const response = await api.post('/register', credentials)
+      if (response.data?.data?.refreshToken) {
+        saveRefreshToken(response.data.data.refreshToken)
+      }
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
@@ -26,6 +46,9 @@ export const authApi = {
   async login(credentials) {
     try {
       const response = await api.post('/login', credentials)
+      if (response.data?.data?.refreshToken) {
+        saveRefreshToken(response.data.data.refreshToken)
+      }
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
@@ -42,8 +65,10 @@ export const authApi = {
           Authorization: `Bearer ${accessToken}`,
         },
       })
+      clearRefreshToken()
       return response.data
     } catch {
+      clearRefreshToken()
       // Even if logout fails, we still want to clear local state
       return { success: true }
     }
@@ -51,7 +76,12 @@ export const authApi = {
 
   async refresh() {
     try {
-      const response = await api.post('/refresh')
+      // Send refresh token in body as fallback for when cookies are blocked
+      const refreshToken = getRefreshToken()
+      const response = await api.post('/refresh', { refreshToken })
+      if (response.data?.data?.refreshToken) {
+        saveRefreshToken(response.data.data.refreshToken)
+      }
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
