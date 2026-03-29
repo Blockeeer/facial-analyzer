@@ -47,9 +47,10 @@ export default function StackChat() {
         setIsComplete(true)
       }
     } catch (err) {
+      console.error('Stack chat error:', err)
       setMessages(prev => [
         ...prev,
-        { role: 'assistant', content: 'Sorry, something went wrong. Please try again.' },
+        { role: 'assistant', content: `Sorry, something went wrong: ${err.message || 'Please try again.'}` },
       ])
     } finally {
       setIsLoading(false)

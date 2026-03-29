@@ -19,6 +19,10 @@ export async function stackChatController(req, res, next) {
       data: result,
     })
   } catch (error) {
-    next(error)
+    console.error('Stack chat error:', error?.message || error)
+    res.status(500).json({
+      success: false,
+      error: error?.message || 'Something went wrong with the chat',
+    })
   }
 }
