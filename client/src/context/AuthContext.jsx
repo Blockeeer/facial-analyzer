@@ -4,6 +4,7 @@ import {
   useState,
   useEffect,
   useCallback,
+  useRef,
 } from 'react'
 import { authApi } from '../services/auth.api'
 
@@ -13,8 +14,13 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [accessToken, setAccessToken] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const refreshingRef = useRef(false)
 
   const refreshAuth = useCallback(async () => {
+    // Prevent concurrent refresh calls (React Strict Mode double-mount)
+    if (refreshingRef.current) return
+    refreshingRef.current = true
+
     try {
       const response = await authApi.refresh()
       if (response.success && response.data) {
@@ -30,6 +36,7 @@ export function AuthProvider({ children }) {
       setAccessToken(null)
     } finally {
       setIsLoading(false)
+      refreshingRef.current = false
     }
   }, [])
 

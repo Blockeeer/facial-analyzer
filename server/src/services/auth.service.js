@@ -119,7 +119,17 @@ class AuthService {
       throw new Error('Token has been invalidated')
     }
 
-    return this.generateTokens(user)
+    // Only generate a new access token; reuse the same refresh token
+    // to avoid race conditions with token rotation (e.g. React Strict Mode double-calls)
+    const accessPayload = {
+      userId: user._id.toString(),
+      email: user.email,
+    }
+    const accessToken = jwt.sign(accessPayload, this.accessTokenSecret, {
+      expiresIn: this.accessTokenExpiry,
+    })
+
+    return { accessToken, refreshToken }
   }
 
   async getUserById(userId) {
