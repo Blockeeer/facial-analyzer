@@ -175,7 +175,7 @@ function FeatureCard({ icon, iconBg, step, title, description }) {
         <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${iconBg} flex items-center justify-center shadow-lg group-hover:shadow-glow transition-shadow`}>
           {icon}
         </div>
-        <span className="text-4xl font-bold text-gray-300">{step}</span>
+        <span className="text-4xl font-bold text-gray-800">{step}</span>
       </div>
       <h3 className="text-xl font-semibold text-gray-900 mb-3">{title}</h3>
       <p className="text-gray-500 leading-relaxed">{description}</p>
